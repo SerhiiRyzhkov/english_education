@@ -11,8 +11,6 @@ CREATE TABLE users
   enabled boolean DEFAULT true,
   mobile character varying(100) NOT NULL,
   level varchar(2) default NULL,
-  locked boolean DEFAULT false,
-  failed_logins integer DEFAULT 0,
   CONSTRAINT email PRIMARY KEY (email)
 );
 

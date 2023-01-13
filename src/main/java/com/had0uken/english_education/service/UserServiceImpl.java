@@ -13,28 +13,31 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserDao userDao;
 
 
-    @Transient
+    @Transactional
     @Override
     public User getUser(String username) {
         return userDao.findById(username);
     }
 
-    @Transient
+    @Transactional
     @Override
     public void saveUser(User user) {
         userDao.save(user);
     }
 
+    @Transient
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userDao.findById(s);

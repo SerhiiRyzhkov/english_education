@@ -46,9 +46,11 @@ public class User implements Serializable{
     private String level;
 
 
+
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "email", joinColumns = {
-            @JoinColumn(name = "user", nullable = false, updatable = false) }, inverseJoinColumns = {
+    @JoinTable(name = "authorities", joinColumns = {
+            @JoinColumn(name = "email", nullable = false, updatable = false) }, inverseJoinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false) })
     private Set<Role> roleSet = new HashSet<>(0);
 
