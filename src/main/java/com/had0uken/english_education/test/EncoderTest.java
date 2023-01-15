@@ -9,7 +9,11 @@ public class EncoderTest {
                         (BCryptPasswordEncoder.
                                 BCryptVersion.$2A, 5);
 
-        String s= "user";
-        System.out.println(bCryptPasswordEncoder.encode(s));
+        String admin= "admin";
+        System.out.println(bCryptPasswordEncoder.encode(admin));
+        String masha= "masha";
+        System.out.println(bCryptPasswordEncoder.encode(masha));
+        String user= "user";
+        System.out.println(bCryptPasswordEncoder.encode(user));
     }
 }

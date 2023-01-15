@@ -17,26 +17,13 @@ import javax.transaction.Transactional;
 @Controller
 public class AuthenticationController {
 
-    @Autowired
-    UserService userService;
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
 
-    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public ModelAndView welcomePage(Authentication authentication) {
-
-        ModelAndView model = new ModelAndView();
-
-        model.addObject("currentUserAtt",authentication.getName());
-        model.addObject("message", "This is home page. It is accessible to all roles.");
-        model.setViewName("home");
-
-        return model;
-
-    }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {

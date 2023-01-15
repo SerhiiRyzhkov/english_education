@@ -16,6 +16,8 @@ ALL USERS LIST:
     <th>Name</th>
     <th>Surname</th>
     <th>Email</th>
+    <th>Phone</th>
+    <th>Level</th>
     <th>Status</th>
 
   </tr>
@@ -33,6 +35,10 @@ ALL USERS LIST:
       <td>${us.name} </td>
       <td>${us.surname}</td>
       <td>${us.email}</td>
+      <td>${us.mobile}</td>
+      <td>${us.level}
+      <c:if test="${us.level=null}">NO LEVEL</c:if>
+      </td>
       <td>
         <c:choose>
           <c:when test="${us.enabled}">

@@ -13,6 +13,10 @@
 <br><br>
 Current user: ${currentUserAtt}
 <br><br>
+<form:form action="testStart">
+    <input type="submit" value="GO TEST!">
+</form:form>
+<br><br>
 <form:form action="logout">
     <div>
         <button type="submit">Logout</button>

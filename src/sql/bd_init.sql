@@ -61,9 +61,9 @@ INSERT INTO roles VALUES (2, 'ROLE_ADMIN');
 
 -- FILLING TABLE WITH USERS
 
-INSERT INTO users VALUES ('user@ukr.net',  'user', 'user', 'user', true, '+380663790304', 'A2');
-INSERT INTO users VALUES ('admin@ukr.net',  'admin', 'admin', 'admin', true, '+380663790304', 'A2');
-
+INSERT INTO users VALUES ('user@ukr.net',  'user', 'user', '$2a$05$LN3RHMayUeNJW.TJKt.8wOzt.18E8Uspy2c20Emvby9e5h2O235NC', true, '+380663790304', 'A2');
+INSERT INTO users VALUES ('admin@ukr.net',  'admin', 'admin', '$2a$05$Fk0jEmt6wgFvBQ68BldApO4AKXoEY9ZDNl0JpnZMmfkZtO/Cn.kz6', true, '+380663790304', 'A2');
+users VALUES ('masha@ukr.net',  'Masha', 'Testovenko', '$2a$05$ovqYw6JDjTiNA794ClzE6OIGW3J.mNEYAnoRUEe12G8L7FvSeNLJW', true, '+380663790304', null);
 -- FILLING TABLE WITH AUTHORITIES
 
 INSERT INTO authorities VALUES ('user@ukr.net', 1);
