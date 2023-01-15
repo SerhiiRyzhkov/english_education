@@ -36,7 +36,7 @@ public class User implements Serializable{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "enabled")
+    @Column(nullable = false, columnDefinition = "default bit 1")
     private Boolean enabled;
 
     @Column(name = "mobile")
@@ -48,7 +48,7 @@ public class User implements Serializable{
 
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false) }, inverseJoinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false) })
@@ -142,7 +142,7 @@ public class User implements Serializable{
                 ", enabled=" + enabled +
                 ", mobile='" + mobile + '\'' +
                 ", level='" + level + '\'' +
-                ", roleSet=" + roleSet +
+
                 '}';
     }
 }

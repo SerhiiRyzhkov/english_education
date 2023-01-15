@@ -5,17 +5,20 @@ import com.had0uken.english_education.dao.UserDao;
 import com.had0uken.english_education.entity.Role;
 import com.had0uken.english_education.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @Transactional
@@ -24,6 +27,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserDao userDao;
 
+
+    @Override
+    public List<User> getAllUser() {
+        return userDao.findALL();
+    }
 
     @Transactional
     @Override
@@ -48,5 +56,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         for(Role role: user.getRoleSet())
             authorityList.add(new SimpleGrantedAuthority(role.getRoleName()));
         return new org.springframework.security.core.userdetails.User(s, user.getPassword(), user.getEnabled(), true, true, true, authorityList);
+    }
+
+    @Override
+    public void banUser(String username) {
+        userDao.banUser(username);
+    }
+
+    @Override
+    public void unBanUser(String username) {
+        userDao.unBanUser(username);
     }
 }

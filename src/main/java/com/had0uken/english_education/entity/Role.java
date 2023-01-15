@@ -29,7 +29,7 @@ public class Role implements Serializable {
     @Column(name ="role_name")
     private String roleName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false) })
@@ -73,7 +73,6 @@ public class Role implements Serializable {
         return "Role{" +
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

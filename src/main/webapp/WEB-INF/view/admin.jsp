@@ -9,6 +9,10 @@
 
 <a href='<c:url value="/home" />'>Home Page</a>
 <br><br>
+<form:form action="admin/listOfUsers">
+  <input type="submit" value="GET ALL USERS LIST">
+</form:form>
+<br><br>
 <form:form action="logout">
   <div>
     <button type="submit">Logout</button>

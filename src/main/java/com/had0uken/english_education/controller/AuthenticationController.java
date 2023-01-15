@@ -4,6 +4,7 @@ package com.had0uken.english_education.controller;
 import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,11 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public ModelAndView welcomePage() {
+    public ModelAndView welcomePage(Authentication authentication) {
 
         ModelAndView model = new ModelAndView();
+
+        model.addObject("currentUserAtt",authentication.getName());
         model.addObject("message", "This is home page. It is accessible to all roles.");
         model.setViewName("home");
 
