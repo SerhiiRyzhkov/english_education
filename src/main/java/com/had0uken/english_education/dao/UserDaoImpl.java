@@ -2,6 +2,7 @@ package com.had0uken.english_education.dao;
 
 
 import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.enums.Level;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
         User user = getSession().get(User.class,id);
         user.setEnabled(true);
         getSession().merge(user);
+    }
+
+    @Override
+    public void setLevel(Serializable id, Level level) {
+        User user = getSession().get(User.class,id);
+        user.setLevel(level.toString());
     }
 }

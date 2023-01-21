@@ -4,6 +4,7 @@ package com.had0uken.english_education.service;
 import com.had0uken.english_education.dao.UserDao;
 import com.had0uken.english_education.entity.Role;
 import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.enums.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.save(user);
     }
 
-    @Transient
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userDao.findById(s);
@@ -58,13 +59,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(s, user.getPassword(), user.getEnabled(), true, true, true, authorityList);
     }
 
+    @Transactional
     @Override
     public void banUser(String username) {
         userDao.banUser(username);
     }
-
+    @Transactional
     @Override
     public void unBanUser(String username) {
         userDao.unBanUser(username);
+    }
+
+    @Transactional
+    @Override
+    public void setLevel(String username, Level level) {
+        userDao.setLevel(username,level);
     }
 }

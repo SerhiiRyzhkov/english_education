@@ -13,7 +13,7 @@
 <br><br>
 Current user: ${currentUserAtt}
 <br><br>
-<form:form action="testStart">
+<form:form action="test/testStart">
     <input type="submit" value="GO TEST!">
 </form:form>
 <br><br>
@@ -23,15 +23,6 @@ Current user: ${currentUserAtt}
     </div>
 </form:form>
 
-<!-- Use below code if Spring's form taglib is not used  -->
 
-<%--
-<form method="post" action="logout" id="form-logout">
-    <input type="hidden" name="${_csrf.parameterName}"	value="${_csrf.token}" />
-    <div>
-        <button type="submit">Logout</button>
-    </div>
-</form>
---%>
 </body>
 </html>
