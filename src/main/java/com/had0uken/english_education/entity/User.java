@@ -45,6 +45,9 @@ public class User implements Serializable{
     @Column(name = "level")
     private String level;
 
+    @Column(name = "points")
+    private int points;
+
 
 
 
@@ -57,7 +60,8 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(String email, String name, String surname, String password, Boolean enabled, String mobile, String level, Set<Role> roleSet) {
+    public User(String email, String name, String surname, String password, Boolean enabled, String mobile,
+                String level, int points, Set<Role> roleSet) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -66,6 +70,7 @@ public class User implements Serializable{
         this.mobile = mobile;
         this.level = level;
         this.roleSet = roleSet;
+        this.points=points;
     }
 
     public String getEmail() {
@@ -132,6 +137,14 @@ public class User implements Serializable{
         this.roleSet = roleSet;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -142,7 +155,7 @@ public class User implements Serializable{
                 ", enabled=" + enabled +
                 ", mobile='" + mobile + '\'' +
                 ", level='" + level + '\'' +
-
+                ", points='" + points + '\'' +
                 '}';
     }
 }

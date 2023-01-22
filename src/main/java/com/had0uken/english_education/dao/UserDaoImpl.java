@@ -37,4 +37,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
         User user = getSession().get(User.class,id);
         user.setLevel(level.toString());
     }
+
+    @Override
+    public void increasePoints(Serializable id, int points){
+        User user = getSession().get(User.class,id);
+        user.setPoints(user.getPoints()+points);
+    }
 }

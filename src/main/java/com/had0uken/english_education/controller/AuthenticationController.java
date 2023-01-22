@@ -1,6 +1,7 @@
 package com.had0uken.english_education.controller;
 
 
+import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -13,11 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 @EnableTransactionManagement
 @Controller
 public class AuthenticationController {
 
-
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
@@ -32,12 +37,15 @@ public class AuthenticationController {
 
     }
 
+
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
         ModelAndView model = new ModelAndView();
         model.addObject("currentUserAtt",authentication.getName());
         model.addObject("message", "This is home page. It is accessible to all roles.");
+        model.addObject("ratingAtt",userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints()-o1.getPoints()).limit(10).collect(Collectors.toList()));
         model.setViewName("home");
+
         return model;
 
     }

@@ -12,4 +12,5 @@ public interface UserDao extends EntityDao<User>{
 
     void setLevel(Serializable id, Level level);
 
+    public void increasePoints(Serializable id, int points);
 }

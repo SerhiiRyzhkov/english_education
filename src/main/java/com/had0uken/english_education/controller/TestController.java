@@ -92,15 +92,18 @@ public class TestController {
     }
 
     @RequestMapping("/receive")
-    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice) {
+    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice,Authentication authentication) {
 
-        System.out.println("888888888888888888888   " + choice);
+
 
         Question theQuestion = currentQuestions.get(index);
 
         totalPoints += pointCounter.getPoints(theQuestion);
 
-        if (choice == theQuestion.getCorrectAnswer()) userPoints += pointCounter.getPoints(theQuestion);
+        if (choice == theQuestion.getCorrectAnswer()){
+            userPoints += pointCounter.getPoints(theQuestion);
+            userService.increasePoints(authentication.getName(),pointCounter.getPoints(theQuestion));
+        }
 
         return "redirect:/test/testing";
     }

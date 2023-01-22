@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void setLevel(String username, Level level) {
-        userDao.setLevel(username,level);
+    public void setLevel(Serializable id, Level level) {
+        userDao.setLevel(id,level);
+    }
+    @Transactional
+    @Override
+    public void increasePoints(Serializable id, int points) {
+        userDao.increasePoints(id,points);
     }
 }
