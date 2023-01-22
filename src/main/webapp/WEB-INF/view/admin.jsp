@@ -7,10 +7,15 @@
 <h1>Admin Page</h1>
 <h2>${message}</h2>
 
-<a href='<c:url value="/home" />'>Home Page</a>
+<a href="/homeReff">To home page</a>
+
 <br><br>
 <form:form action="admin/listOfUsers">
   <input type="submit" value="GET ALL USERS LIST">
+</form:form>
+<br><br>
+<form:form action="admin/addNewQuestions">
+  <input type="submit" value="ADD NEW QUESTIONS">
 </form:form>
 <br><br>
 <form:form action="logout">

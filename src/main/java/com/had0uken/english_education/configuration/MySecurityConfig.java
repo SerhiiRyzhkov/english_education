@@ -43,6 +43,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/admin**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -52,7 +53,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and()
                 .logout()
-                .permitAll();
+
+                .permitAll()
+                ;
+
        /* http.authorizeRequests()
                 // URLs matching for access rights
                 .antMatchers("/").permitAll()

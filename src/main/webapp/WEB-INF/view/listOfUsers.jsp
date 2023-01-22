@@ -54,6 +54,8 @@ ALL USERS LIST:
     </tr>
   </c:forEach>
 </table>
-
+<form action="adminRef">
+  <input type="submit" value="BACK">
+</form>
 </body>
 </html>

@@ -2,12 +2,16 @@ package com.had0uken.english_education.entity;
 
 
 
+
+import com.had0uken.english_education.validation.question.CheckCorrectAnswer;
+import com.had0uken.english_education.validation.question.CheckQuestionLevel;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name="questions")
@@ -20,19 +24,27 @@ public class Question implements Serializable {
     @Column(name = "id")
     private int id;
     @Column(name = "question")
+    @Size(min = 20, message = "question must be min 20 symbols")
     private String question;
+    @NotBlank(message = "answers can not be empty!")
     @Column(name = "answer1")
     private String answer1;
+    @NotBlank(message = "answers can not be empty!")
     @Column(name = "answer2")
     private String answer2;
+    @NotBlank(message = "answers can not be empty!")
     @Column(name = "answer3")
     private String answer3;
+    @CheckCorrectAnswer
     @Column(name = "correct_answer")
     private int correctAnswer;
+    @CheckQuestionLevel
     @Column(name = "level")
     private String level;
+
     @Column(name = "type")
     private String type;
+
     @Column(name = "format")
     private String format;
 

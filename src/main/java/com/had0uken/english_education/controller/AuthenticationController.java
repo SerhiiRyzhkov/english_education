@@ -24,6 +24,14 @@ public class AuthenticationController {
         return "login";
     }
 
+    @RequestMapping("/homeReff")
+    public ModelAndView adminPageRedirection(Authentication authentication){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("redirect:/home");
+        return model;
+
+    }
+
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
         ModelAndView model = new ModelAndView();
