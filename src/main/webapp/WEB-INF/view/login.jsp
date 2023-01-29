@@ -27,9 +27,15 @@
             <div>
                 <button type="submit">Log in</button>
             </div>
+            <div>
+
+            </div>
         </fieldset>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
 </div>
+<a href="registration">
+    <button name="register">Sign up</button>
+</a>
 </body>
 </html>

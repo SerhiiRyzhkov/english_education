@@ -1,6 +1,7 @@
 package com.had0uken.english_education.dao;
 
 
+import com.had0uken.english_education.entity.Role;
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.enums.Level;
 import org.hibernate.Session;
@@ -14,6 +15,8 @@ import java.io.Serializable;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private RoleDao roleDao;
 
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
@@ -42,5 +45,16 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
     public void increasePoints(Serializable id, int points){
         User user = getSession().get(User.class,id);
         user.setPoints(user.getPoints()+points);
+    }
+
+    @Override
+    public boolean isPresent(Serializable id) {
+        return (getSession().get(User.class, id)) != null;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        user.addRole(new Role(1,"ROLE_USER"));
+        getSession().save(user);
     }
 }

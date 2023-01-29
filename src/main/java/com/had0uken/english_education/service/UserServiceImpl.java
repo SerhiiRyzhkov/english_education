@@ -30,6 +30,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     UserDao userDao;
 
 
+
+    @Transactional
     @Override
     public List<User> getAllUser() {
         return userDao.findALL();
@@ -44,7 +46,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void saveUser(User user) {
-        userDao.save(user);
+        userDao.saveUser(user);
+
     }
 
     @Transactional
@@ -80,5 +83,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void increasePoints(Serializable id, int points) {
         userDao.increasePoints(id,points);
+    }
+    @Transactional
+    @Override
+    public boolean isPresent(Serializable id) {
+        return userDao.isPresent(id);
     }
 }

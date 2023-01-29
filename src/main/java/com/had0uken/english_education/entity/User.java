@@ -1,20 +1,19 @@
 package com.had0uken.english_education.entity;
 
 
+import com.had0uken.english_education.validation.user.CheckUserEmail;
+import com.had0uken.english_education.validation.user.CheckUserEmailUnique;
+import com.had0uken.english_education.validation.user.CheckUserMobile;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -24,12 +23,14 @@ public class User implements Serializable{
     @Serial
     private static final long serialVersionUID = 8167906830939483475L;
     @Id
+    @CheckUserEmail
+    @CheckUserEmailUnique
     @Column(name = "email", nullable = false)
     private String email;
-
+    @NotBlank(message = "Name can not be empty!")
     @Column(name = "name")
     private String name;
-
+    @NotBlank(message = "Surname can not be empty!")
     @Column(name = "surname")
     private String surname;
 
@@ -38,7 +39,7 @@ public class User implements Serializable{
 
     @Column(nullable = false, columnDefinition = "default bit 1")
     private Boolean enabled;
-
+    @CheckUserMobile
     @Column(name = "mobile")
     private String mobile;
 
@@ -51,13 +52,14 @@ public class User implements Serializable{
 
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(/*cascade = CascadeType.ALL,*/ fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false) }, inverseJoinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false) })
     private Set<Role> roleSet = new HashSet<>(0);
 
     public User() {
+
     }
 
     public User(String email, String name, String surname, String password, Boolean enabled, String mobile,
@@ -73,6 +75,11 @@ public class User implements Serializable{
         this.points=points;
     }
 
+
+    public void addRole(Role role){
+        if(roleSet==null)roleSet=new HashSet<>();
+        roleSet.add(role);
+    }
     public String getEmail() {
         return email;
     }

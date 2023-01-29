@@ -16,7 +16,6 @@ public class CheckQuestionLevelValidator implements ConstraintValidator<CheckQue
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        System.out.println("HERE!!! "+ Arrays.stream(Level.values()).map(Enum::toString).anyMatch(l->l.equals(s)));
         return Arrays.stream(Level.values()).map(Enum::toString).anyMatch(l->l.equals(s));
     }
 }

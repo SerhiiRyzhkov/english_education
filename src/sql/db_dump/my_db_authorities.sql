@@ -38,7 +38,7 @@ CREATE TABLE `authorities` (
 
 LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES ('admin@ukr.net',1),('user@ukr.net',1),('admin@ukr.net',2);
+INSERT INTO `authorities` VALUES ('admin@ukr.net',1),('andrey@ukr.net',1),('danilo@ukr.net',1),('dayana@ukr.net',1),('elina@ukr.net',1),('ivak@ukr.net',1),('makar@ukr.net',1),('maksim@ukr.net',1),('marta@ukr.net',1),('masha@ukr.net',1),('mykola@ukr.net',1),('olena@ukr.net',1),('polina@ukr.net',1),('tanya@ukr.net',1),('taras@ukr.net',1),('user@ukr.net',1),('vadim@ukr.net',1),('yulya@ukr.net',1),('admin@ukr.net',2);
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-22 22:45:06
+-- Dump completed on 2023-01-30  0:55:04

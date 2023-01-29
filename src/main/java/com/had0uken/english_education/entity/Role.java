@@ -7,14 +7,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "roles")
 public class Role implements Serializable {
@@ -29,13 +23,18 @@ public class Role implements Serializable {
     @Column(name ="role_name")
     private String roleName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany( fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false) })
     private Set<User> users = new HashSet<User>(0);
 
     public Role() {
+    }
+
+    public Role(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
 
     public Role(int roleId, String roleName, Set<User> users) {

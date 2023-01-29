@@ -15,4 +15,5 @@ public interface UserService {
     void unBanUser(String username);
     void setLevel(Serializable id, Level level);
     public void increasePoints(Serializable id, int points);
+    public boolean isPresent(Serializable id);
 }
