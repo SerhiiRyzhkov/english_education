@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `my_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `my_db`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: my_db
@@ -38,7 +40,7 @@ CREATE TABLE `authorities` (
 
 LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES ('admin@ukr.net',1),('andrey@ukr.net',1),('danilo@ukr.net',1),('dayana@ukr.net',1),('elina@ukr.net',1),('ivak@ukr.net',1),('makar@ukr.net',1),('maksim@ukr.net',1),('marta@ukr.net',1),('masha@ukr.net',1),('mykola@ukr.net',1),('olena@ukr.net',1),('polina@ukr.net',1),('tanya@ukr.net',1),('taras@ukr.net',1),('user@ukr.net',1),('vadim@ukr.net',1),('yulya@ukr.net',1),('admin@ukr.net',2);
+INSERT INTO `authorities` VALUES ('admin@ukr.net',1),('andrey@ukr.net',1),('danilo@ukr.net',1),('dayana@ukr.net',1),('elina@ukr.net',1),('makar@ukr.net',1),('maksim@ukr.net',1),('marta@ukr.net',1),('masha@ukr.net',1),('mykola@ukr.net',1),('olena@ukr.net',1),('polina@ukr.net',1),('tanya@ukr.net',1),('taras@ukr.net',1),('user@ukr.net',1),('vadim@ukr.net',1),('yulya@ukr.net',1),('admin@ukr.net',2);
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-30  0:55:04
+-- Dump completed on 2023-01-30 17:17:15

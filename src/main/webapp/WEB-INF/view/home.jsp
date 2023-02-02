@@ -13,11 +13,19 @@
 <br><br>
 Current user: ${currentUserAtt}
 <br><br>
-<form:form action="test/testStart">
-    <input type="submit" value="GO TEST!">
-</form:form>
 
-<br><br>
+
+<c:if test="${isFirstVisitAtt}">
+    It`s seem like your first visit! We recommend to check your actual level using our test
+    <br>
+    <form:form action="test/testStart">
+        <input type="submit" value="GO TEST!">
+    </form:form>
+
+    <br><br>
+</c:if>
+
+
 Rating of best users
 <table>
     <tr>
@@ -43,12 +51,68 @@ Rating of best users
     </c:forEach>
 </table>
 
+
+
+
 <br><br>
+
+
+CHAT
+
+            <br>
+
+
+            <c:forEach var="mes" items="${mapAtt}">
+                <c:if test="${mes.value.email!=currentUserAtt}">
+                    <a>${mes.key.timestamp} <i>${mes.value.name} ${mes.value.surname}:</i> ${mes.key.message}</a>
+                    <br>
+                </c:if>
+                <c:if test="${mes.value.email==currentUserAtt}">
+                    <a>${mes.key.timestamp} <u><b>${mes.value.name} ${mes.value.surname}:</u></b> ${mes.key.message}</a>
+                    <br>
+                </c:if>
+
+            </c:forEach>
+
+
+
+<form:form action="chatSendMessage">
+    <input type="text"  name="messageAtt">
+        <button type="submit">Send</button>
+
+</form:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+<br>
+
+<br>
+<br>
+
+<br>
+
+
+
 <form:form action="logout">
     <div>
         <button type="submit">Logout</button>
     </div>
 </form:form>
+
+
 
 
 </body>

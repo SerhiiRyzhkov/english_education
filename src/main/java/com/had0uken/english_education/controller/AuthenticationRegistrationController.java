@@ -1,8 +1,10 @@
 package com.had0uken.english_education.controller;
 
 
+import com.had0uken.english_education.entity.Message;
 import com.had0uken.english_education.entity.Role;
 import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.service.MessageService;
 import com.had0uken.english_education.service.RoleService;
 import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @EnableTransactionManagement
@@ -28,6 +30,8 @@ public class AuthenticationRegistrationController {
     private UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
 
 
@@ -47,16 +51,7 @@ public class AuthenticationRegistrationController {
     }
 
 
-    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public ModelAndView welcomePage(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentUserAtt",authentication.getName());
-        modelAndView.addObject("message", "This is home page. It is accessible to all roles.");
-        modelAndView.addObject("ratingAtt",userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints()-o1.getPoints()).limit(10).collect(Collectors.toList()));
-        modelAndView.setViewName("home");
-        return modelAndView;
 
-    }
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
