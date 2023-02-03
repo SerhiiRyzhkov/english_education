@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface QuestionService {
     List<Question> getAllQuestions();
+
+    List<Question> getTextQuestions();
     void save(Question question);
 }

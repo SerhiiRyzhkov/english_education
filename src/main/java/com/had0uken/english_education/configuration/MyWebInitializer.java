@@ -1,7 +1,11 @@
 package com.had0uken.english_education.configuration;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 @Configuration
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -18,5 +22,11 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] { new HiddenHttpMethodFilter(),
+                new CharacterEncodingFilter("UTF-16", true, true) };
     }
 }

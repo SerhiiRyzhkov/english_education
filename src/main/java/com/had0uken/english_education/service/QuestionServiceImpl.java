@@ -29,4 +29,10 @@ public class QuestionServiceImpl implements QuestionService{
     public void save(Question question) {
         questionDao.save(question);
     }
+
+    @Transactional
+    @Override
+    public List<Question> getTextQuestions() {
+        return questionDao.getTextQuestions();
+    }
 }

@@ -15,8 +15,7 @@ import java.io.Serializable;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    private RoleDao roleDao;
+
 
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();

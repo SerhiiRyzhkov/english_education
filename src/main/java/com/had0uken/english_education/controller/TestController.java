@@ -52,7 +52,7 @@ public class TestController {
 
     @RequestMapping("/testStart")
     public String showTestView() {
-        List<Question> allQuestions = questionService.getAllQuestions();
+        List<Question> allQuestions = questionService.getTextQuestions();
 
         Random random = new Random();
         totalPoints = 0;

@@ -4,6 +4,9 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@page session="false"%>
 <html>
+<head>
+    <meta http-equiv="Refresh" content="5" />
+</head>
 <body>
 <h1>Home Page</h1>
 <h2>${message}</h2>
@@ -80,6 +83,13 @@ CHAT
     <input type="text"  name="messageAtt">
         <button type="submit">Send</button>
 
+</form:form>
+
+<br>
+<br>
+
+<form:form action="/reading/">
+    <button type="submit">Reading</button>
 </form:form>
 
 
