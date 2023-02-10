@@ -18,10 +18,7 @@ roll-question-view
     <br>
     Choose the correct answer:
     <br>
-
-
     <input type="radio" value="1" name="choiceAtt" checked> ${curQuestionAtt.answer1}
-
     <br>
     <input type="radio" value="2" name="choiceAtt"> ${curQuestionAtt.answer2}
     <br>

@@ -48,12 +48,15 @@ public class Question implements Serializable {
     @Column(name = "format")
     private String format;
 
+    @Column(name = "source_id")
+    private int sourceId;
+
 
 
     public Question() {
     }
 
-    public Question(int id, String question, String answer1, String answer2, String answer3, int correctAnswer, String level, String type, String format) {
+    public Question(int id, String question, String answer1, String answer2, String answer3, int correctAnswer, String level, String type, String format, int sourceId) {
         this.id = id;
         this.question = question;
         this.answer1 = answer1;
@@ -63,6 +66,7 @@ public class Question implements Serializable {
         this.level = level;
         this.type = type;
         this.format = format;
+        this.sourceId=sourceId;
 
 
     }
@@ -81,6 +85,7 @@ public class Question implements Serializable {
                 ", level='" + level + '\'' +
                 ", type='" + type + '\'' +
                 ", format='" + format + '\'' +
+                ", source_id='" + sourceId + '\'' +
                 '}';
     }
 
@@ -154,6 +159,14 @@ public class Question implements Serializable {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public int getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(int sourceId) {
+        this.sourceId = sourceId;
     }
 
     @Override

@@ -52,7 +52,7 @@ public class TestController {
 
     @RequestMapping("/testStart")
     public String showTestView() {
-        List<Question> allQuestions = questionService.getTextQuestions();
+        List<Question> allQuestions = questionService.getListOfQuestions("simple");
 
         Random random = new Random();
         totalPoints = 0;
@@ -81,12 +81,10 @@ public class TestController {
             model.addAttribute("userPointsAtt", userPoints);
             model.addAttribute("levelAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getLevel());
             model.addAttribute("adviceAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
-            System.out.println("totalPoints" + totalPoints);
-            System.out.println("userPoints" + userPoints);
             Level level = levelCounter.getLevelByScore(totalPoints,userPoints);
-            System.out.println("levelAtt" + level.getLevel());
-            System.out.println("adviceAtt" + levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
             userService.setLevel(authentication.getName(), level);
+            totalPoints=0;
+            userPoints=0;
             return "test-final-view";
         }
     }
@@ -106,6 +104,7 @@ public class TestController {
         }
 
         return "redirect:/test/testing";
+
     }
 
 

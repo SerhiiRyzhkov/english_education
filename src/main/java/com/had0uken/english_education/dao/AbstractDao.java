@@ -9,6 +9,7 @@ import com.had0uken.english_education.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -43,6 +44,11 @@ public abstract class AbstractDao<E extends Serializable> implements EntityDao<E
         return getSession().createQuery("from " + entityClass.getName()).getResultList();
     }
 
-
+    @Override
+    public E findByColumn(String column, String input) {
+        Query query = getSession().createQuery("select e from " + entityClass.getSimpleName()+ " e where e."+
+                ":column = :input").setParameter("input", input).setParameter("column", column);
+        return (E)query.getSingleResult();
+    }
 }
 
