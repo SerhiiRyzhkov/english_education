@@ -62,7 +62,7 @@ public class TestController {
             if (!currentQuestions.contains(allQuestions.get(rand)))
                 currentQuestions.add(allQuestions.get(rand));
         }
-        return "test-view";
+        return "start-test-views/test-view";
     }
 
     @RequestMapping("/testing")
@@ -73,7 +73,7 @@ public class TestController {
             model.addAttribute("curQuestionAtt", currentQuestions.get(index));
             model.addAttribute("amountAtt", AMOUNT_OF_QUESTIONS);
             model.addAttribute("indexAtt", index);
-            return "roll-question-view";
+            return "start-test-views/roll-question-view";
         } else {
             index = -1;
             currentQuestions.clear();
@@ -85,7 +85,7 @@ public class TestController {
             userService.setLevel(authentication.getName(), level);
             totalPoints=0;
             userPoints=0;
-            return "test-final-view";
+            return "start-test-views/test-final-view";
         }
     }
 

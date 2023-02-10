@@ -9,11 +9,9 @@ import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +42,7 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         List<User> allUsers = userService.getAllUser();
         model.addObject("allUsersAtt", allUsers);
-        model.setViewName("listOfUsers");
+        model.setViewName("admin-views/listOfUsers");
 
         return model;
     }
@@ -53,7 +51,7 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         Question question = new Question();
         model.addObject("questionAtt", question);
-        model.setViewName("add-questions-view");
+        model.setViewName("admin-views/add-questions-view");
         return model;
     }
 
@@ -62,7 +60,7 @@ public class AdminController {
                                         BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         if(bindingResult.hasErrors()) {
-            model.setViewName("add-questions-view");
+            model.setViewName("admin-views/add-questions-view");
         }
         else {
             question.setType("text");

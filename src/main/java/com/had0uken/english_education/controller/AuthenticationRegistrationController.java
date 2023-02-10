@@ -1,14 +1,9 @@
 package com.had0uken.english_education.controller;
 
 
-import com.had0uken.english_education.entity.Message;
-import com.had0uken.english_education.entity.Role;
 import com.had0uken.english_education.entity.User;
-import com.had0uken.english_education.service.MessageService;
-import com.had0uken.english_education.service.RoleService;
 import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -19,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @EnableTransactionManagement
 @Controller
@@ -38,7 +31,7 @@ public class AuthenticationRegistrationController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("auth_and_reg-views/login");
         return modelAndView;
     }
 
@@ -58,7 +51,7 @@ public class AuthenticationRegistrationController {
     public ModelAndView adminPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", "This page is accessible for Admin role !");
-        modelAndView.setViewName("admin");
+        modelAndView.setViewName("auth_and_reg-views/admin");
         return modelAndView;
 
     }
@@ -67,7 +60,7 @@ public class AuthenticationRegistrationController {
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("newUserAtt",new User());
-        modelAndView.setViewName("registration-view");
+        modelAndView.setViewName("auth_and_reg-views/registration-view");
         return modelAndView;
     }
 
@@ -80,15 +73,15 @@ public class AuthenticationRegistrationController {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("bindingresults======"+bindingResult);
         if(bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration-view");
+            modelAndView.setViewName("auth_and_reg-views/registration-view");
         }
         else {
             if(!pas1.equals(pas2)) {
-                modelAndView.setViewName("registration-view");
+                modelAndView.setViewName("auth_and_reg-views/registration-view");
                 modelAndView.addObject("messageAtt","Passwords do not match!");
             }
             else {
-                modelAndView.setViewName("succes-registation-view");
+                modelAndView.setViewName("auth_and_reg-views/succes-registation-view");
                 user.setPassword(bCryptPasswordEncoder.encode(pas1));
                 user.setEnabled(true);
                 userService.saveUser(user);
@@ -102,7 +95,7 @@ public class AuthenticationRegistrationController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", "You are not authorized to view this page.");
-        modelAndView.setViewName("accessDenied");
+        modelAndView.setViewName("auth_and_reg-views/accessDenied");
 
         return modelAndView;
 

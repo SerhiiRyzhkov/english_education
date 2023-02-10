@@ -47,7 +47,7 @@ public class HomeController {
         for(Message m:visibleMessages)
             messageMap.put(m,m.getAuthorId());
         modelAndView.addObject("mapAtt",messageMap);
-        modelAndView.setViewName("home");
+        modelAndView.setViewName("home-views/home");
         return modelAndView;
 
     }
