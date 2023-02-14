@@ -9,8 +9,7 @@
 <title>Jesus and the Aubergines</title>
 </head>
 <body>
-<h1>С2 Reading Test</h1>
-<h2>Jesus and the Aubergines</h2>
+<h1>C2 Reading Test</h1><h2>Jesus and the Aubergines</h2>
 <br>
 My husband spent August wondering whether he wanted to leave me or not. I didn't seem to be involved in the decision, so I filled the time by going on a diet of raw vegetables. I followed the instructions exactly from a book I bought purely on the strength of the photograph on the front cover. It was of a model with long blonde hair, bright eyes and the sort of smile you thought could only belong to rich American children. I knew that wasn't true, because my husband had fallen in love with a girl with perfect white teeth and she came from Nottingham.
 

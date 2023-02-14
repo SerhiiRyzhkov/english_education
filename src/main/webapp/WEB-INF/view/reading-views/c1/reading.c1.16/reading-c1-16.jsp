@@ -9,8 +9,7 @@
 <title>Four book summaries</title>
 </head>
 <body>
-<h1>С1 Reading Test</h1>
-<h2>Four book summaries</h2>
+<h1>C1 Reading Test</h1><h2>Four book summaries</h2>
 <br>
 <img src="<c:url value="/resources/img/reading/c1/16/Summaries.jpg"/>" alt="Banana" />
 <br>

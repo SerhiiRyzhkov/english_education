@@ -64,6 +64,7 @@ public class AdminController {
         }
         else {
             question.setType("text");
+            question.setSourceId(0);
             questionService.save(question);
             model.setViewName("redirect:addNewQuestions");
         }

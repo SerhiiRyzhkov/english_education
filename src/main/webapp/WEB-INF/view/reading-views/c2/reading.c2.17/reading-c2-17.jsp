@@ -9,8 +9,7 @@
     <title>Cookies</title>
 </head>
 <body>
-<h1>С2 Reading Test</h1>
-<h2>Cookies</h2>
+<h1>C2 Reading Test</h1><h2>Cookies</h2>
 <br>Jessica was my neighbor, a year older than me, tall, redheaded, and evil. Her house was one bedroom smaller than mine and she lived with her mother who was tall, redheaded, evil, and old. Her father had the good sense to escape from these two before they made stew out of him. When they weren't locked away inside their little house sticking pins in dolls and worshipping frogs, Jessica and her mother, Mrs. Walters, were on the lookout for me, waiting for me to step one foot into their yard.
 
 Mrs. Walters never baked cookies, never had iced tea or lemonade handy, and never, ever smiled at anyone besides Jessica. She was the Olympic champion of scowling, fist-shaking, and fingerpointing. She could throw the Heebee Jeebees on you with a look from across the yard and it would take all day to wear off. Jessica had that same look and I knew when she got old enough she'd be even better at it than her mother. Still, there were times, when she didn't know I was looking at her -- at school in the halls or when she was playing in her backyard alone -- that she didn't have her face all scrunched up and her eyes weren't burning holes in me, that I thought she looked pretty. I even wondered how it would be to kiss her. But then she'd catch me looking, and I'd sooner kiss dirt.

@@ -9,8 +9,7 @@
     <title>Cultural behaviour in business</title>
 </head>
 <body>
-<h1>С1 Reading Test</h1>
-<h2>Cultural behaviour in business</h2>
+<h1>C1 Reading Test</h1><h2>Cultural behaviour in business</h2>
 <br>
 <img src="<c:url value="/resources/img/reading/c1/15/Business.jpg" />" alt="Banana" />
 <br>

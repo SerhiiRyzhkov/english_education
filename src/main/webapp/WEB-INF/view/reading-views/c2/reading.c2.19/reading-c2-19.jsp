@@ -9,7 +9,7 @@
     <title>Safety At The Beach</title>
 </head>
 <body>
-<h1>С2 Reading Test</h1>
+<h1>C2 Reading Test</h1>
 <h2>Safety At The Beachs</h2>
 <br>
 Safety At The Sea

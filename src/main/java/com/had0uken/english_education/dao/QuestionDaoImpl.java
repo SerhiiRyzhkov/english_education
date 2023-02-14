@@ -22,6 +22,9 @@ public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDa
     }
     @Override
     public List<Question> getListOfQuestions(String format) {
+        System.out.println(getSession().createQuery("from Question where format = :formatParam").
+                setParameter("formatParam",format).
+                getResultList());
      return getSession().createQuery("from Question where format = :formatParam").
              setParameter("formatParam",format).
              getResultList();

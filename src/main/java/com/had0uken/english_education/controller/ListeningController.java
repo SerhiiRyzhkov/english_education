@@ -23,9 +23,8 @@ import java.util.List;
 
 @EnableTransactionManagement
 @Controller
-@RequestMapping("/reading")
-public class ReadingTestController {
-
+@RequestMapping("/listening")
+public class ListeningController {
     @Autowired
     private QuestionService questionService;
 
@@ -45,7 +44,7 @@ public class ReadingTestController {
     private LevelCounter levelCounter;
 
 
-   //starting index of question from currentQuestions list
+    //starting index of question from currentQuestions list
     private int index = 0;
     //Max value of possible points of a test
     private int totalPoints = 0;
@@ -56,21 +55,7 @@ public class ReadingTestController {
     @RequestMapping("/")
     public ModelAndView reading(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("reading-views\\\\reading-practice-test");
-        return modelAndView;
-    }
-
-
-    @RequestMapping("/a1")
-    public ModelAndView readingA1() {
-        ModelAndView modelAndView = new ModelAndView();
-        List<Task> a1ReadingTasks = taskService.findByParams(Level.A1, "Reading", "reading");
-
-        modelAndView.addObject("tasksAtt", a1ReadingTasks);
-
-        modelAndView.setViewName("reading-practice-tests-this-level");
-
-
+        modelAndView.setViewName("listening-views\\\\listening-practice-test");
         return modelAndView;
     }
 
@@ -80,13 +65,12 @@ public class ReadingTestController {
 
         Level level=
                 Arrays.stream(Level.values()).filter(e->e.toString().equals(levelAtt)).findFirst().get();
-        List<Task> ReadingTasks = taskService.findByParams(level, "Reading", "reading");
-        modelAndView.addObject("tasksAtt", ReadingTasks);
+        List<Task> ListeningTasks = taskService.findByParams(level, "Listening", "audio");
+        modelAndView.addObject("tasksAtt", ListeningTasks);
 
-        modelAndView.setViewName("reading-views\\\\reading-practice-tests-this-level");
+        modelAndView.setViewName("listening-views\\\\listening-practice-tests-this-level");
         return modelAndView;
     }
-
 
     @RequestMapping("/showTask")
     public ModelAndView showTask(@RequestParam("taskId") int taskId) {
@@ -94,20 +78,19 @@ public class ReadingTestController {
         Task task = taskService.findById(taskId);
         currentTask=task;
         if(questions==null) questions=questionService.getListOfQuestions(taskId);
-
         if(index<questions.size()) {
             modelAndView.addObject("curQuestionAtt", questions.get(index));
             modelAndView.addObject("amountAtt", questions.size());
             modelAndView.addObject("indexAtt", index);
-            modelAndView.setViewName(getTaskViewName(task));
+            modelAndView.addObject("curTaskAtt", currentTask);
+            modelAndView.setViewName("listening-views\\\\listening-task-view");
         }
         else
         {
-            modelAndView.setViewName("redirect:/reading/showResult");
+            modelAndView.setViewName("redirect:/listening/showResult");
         }
         return modelAndView;
     }
-
 
     @RequestMapping("/receive")
     public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication){
@@ -124,7 +107,7 @@ public class ReadingTestController {
         }
 
         index++;
-        modelAndView.setViewName("redirect:/reading/showTask?taskId=" + currentTask.getId());
+        modelAndView.setViewName("redirect:/listening/showTask?taskId=" + currentTask.getId());
         return modelAndView;
     }
 
@@ -139,24 +122,9 @@ public class ReadingTestController {
         currentTask = null;
         questions=null;
 
-        modelAndView.setViewName("reading-views\\\\show-reading-test-result");
+        modelAndView.setViewName("listening-views\\\\show-listening-test-result");
         return modelAndView;
     }
 
 
-
-    private String getTaskViewName(Task task) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\\\\reading-views\\\\");
-        stringBuilder.append(task.getLevel().toLowerCase());
-        stringBuilder.append("\\\\");
-        stringBuilder.append(task.getFormat());
-        stringBuilder.append(".");
-        stringBuilder.append(task.getLevel().toLowerCase());
-        stringBuilder.append(".");
-        stringBuilder.append(task.getId());
-        stringBuilder.append("\\\\");
-        stringBuilder.append(task.getName());
-        return stringBuilder.toString();
-    }
 }
