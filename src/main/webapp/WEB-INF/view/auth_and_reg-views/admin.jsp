@@ -18,6 +18,10 @@
   <input type="submit" value="ADD NEW QUESTIONS">
 </form:form>
 <br><br>
+<form:form action="admin/addNewListening">
+  <input type="submit" value="ADD NEW LISTENING">
+</form:form>
+<br><br>
 <form:form action="logout">
   <div>
     <button type="submit">Logout</button>
