@@ -3,7 +3,9 @@ package com.had0uken.english_education.controller;
 
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.service.UserService;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @EnableTransactionManagement
 @Controller
@@ -24,6 +29,9 @@ public class AuthenticationRegistrationController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${folder.path}")
+    private String baseFolder;
+
 
 
 
@@ -32,8 +40,13 @@ public class AuthenticationRegistrationController {
     public ModelAndView loginPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("auth_and_reg-views/login");
+
         return modelAndView;
+
     }
+
+
+
 
     @RequestMapping("/homeReff")
     public ModelAndView adminPageRedirection(){

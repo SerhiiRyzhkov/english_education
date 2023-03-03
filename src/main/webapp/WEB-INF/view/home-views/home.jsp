@@ -5,7 +5,7 @@
 <%@page session="false"%>
 <html>
 <head>
-    <meta http-equiv="Refresh" content="5" />
+    <%--<meta http-equiv="Refresh" content="5" />--%>
 </head>
 <body>
 <h1>Home Page</h1>

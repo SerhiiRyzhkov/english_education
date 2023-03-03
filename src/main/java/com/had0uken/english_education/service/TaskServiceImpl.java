@@ -26,4 +26,9 @@ public class TaskServiceImpl implements TaskService{
     public Task findById(Serializable id){
         return taskDao.findById(id);
     }
+
+    @Override
+    public void save(Task task) {
+        taskDao.save(task);
+    }
 }

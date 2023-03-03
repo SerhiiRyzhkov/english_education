@@ -5,10 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-Success
+Task was successfully added!
 <br>
-<h2>Submitted File</h2>
-<br>
-File uploaded!!!
+<a href="/homeReff">To home page</a>
 </body>
 </html>

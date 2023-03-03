@@ -35,7 +35,7 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
         return new Filter[] { new HiddenHttpMethodFilter(),
                 new CharacterEncodingFilter("UTF-16", true, true) };
     }
-    private int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
+    private int maxUploadSizeInMb = 20 * 1024 * 1024; // 20 MB
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         // upload temp file will put here

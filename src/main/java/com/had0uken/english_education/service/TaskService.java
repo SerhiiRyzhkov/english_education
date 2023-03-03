@@ -15,4 +15,5 @@ public interface TaskService {
 
     public Task findById(Serializable id);
 
+    public void save(Task task);
 }
