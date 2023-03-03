@@ -12,7 +12,7 @@
 <h3>File Upload:</h3>
 Select file to upload: <br />
 <%--<form method="POST" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">--%>
-<form method="POST" action="/admin/uploadListening" enctype="multipart/form-data">
+<form method="POST" action="/admin/uploadReading" enctype="multipart/form-data">
     <br>
     Type the question:
     <input type="text" name="nameAtt">
@@ -32,12 +32,18 @@ Select file to upload: <br />
     <br>
     <input type="radio" value="C2" name="levelAtt"> C2
     <br>
+    Type the reading text:
+    <input type="text" name="readingAtt">
+    <br>
     Choose amount of questions:
     <br>
     <input type="number" name="amountAtt" min="2" max="12">
     <br>
     <input type="file" name="file" /><br/>
+
+
     <input type="submit" value="Submit" />
+
 </form>
 </body>
 </html>

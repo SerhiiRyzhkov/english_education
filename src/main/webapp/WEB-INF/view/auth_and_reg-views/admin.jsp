@@ -15,11 +15,15 @@
 </form:form>
 <br><br>
 <form:form action="admin/addNewQuestions">
-  <input type="submit" value="ADD NEW QUESTIONS">
+  <input type="submit" value="ADD NEW SIMPLE QUESTIONS">
 </form:form>
 <br><br>
 <form:form action="admin/addNewListening">
   <input type="submit" value="ADD NEW LISTENING">
+</form:form>
+<br><br>
+<form:form action="admin/addNewReading">
+  <input type="submit" value="ADD NEW READING">
 </form:form>
 <br><br>
 <form:form action="logout">

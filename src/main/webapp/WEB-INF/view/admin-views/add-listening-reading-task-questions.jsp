@@ -14,7 +14,7 @@ Fill the questions for listening task:
 Question: ${indexAtt+1} / ${amountAtt}
 <br>
 
-<form:form action = "saveLQuestions" modelAttribute="questionAtt">
+<form:form action = "saveLRQuestions" modelAttribute="questionAtt">
     Question:
     <form:input path="question"/>
     <br>
