@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -123,7 +122,7 @@ public class AdminController {
             System.out.println("file is empty");
 
             array=new Question[amount];
-            createReading(reading,task.getId(),level);
+            createReading(reading,task.getId(),level,false);
             currentIndex=0;
             return "redirect:/admin/addRLQuestions";
         }
@@ -145,7 +144,7 @@ public class AdminController {
             array=new Question[amount];
 
             currentIndex=0;
-            createReading(reading,task.getId(),level);
+            createReading(reading,task.getId(),level,true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,7 +153,7 @@ public class AdminController {
     }
 
 
-    public void createReading(String text, Integer sourceId, String level) throws URISyntaxException, IOException {
+    public void createReading(String text, Integer sourceId, String level, boolean picture) throws URISyntaxException, IOException {
         File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
                 .toURI()).getPath());
         String p=pfile.toString();
@@ -191,17 +190,19 @@ public class AdminController {
                 fileWriter.write(task.getTitle());
                 fileWriter.write("</h2>\n" +
                         "<br>");
-                fileWriter.write("<img src=\"<c:url value=\"/resources/img/reading/");
-                fileWriter.write(level.toLowerCase());
-                fileWriter.write("/reading-");
-                fileWriter.write(level.toLowerCase());
-                fileWriter.write("-");
-                fileWriter.write(String.valueOf(task.getId()));
-                fileWriter.write("/reading-");
-                fileWriter.write(level.toLowerCase());
-                fileWriter.write("-");
-                fileWriter.write(String.valueOf(task.getId()));
-                fileWriter.write(".jpg\" />\\\" alt=\"Picture\" />");
+                if(picture) {
+                    fileWriter.write("<img src=\"<c:url value=\"/resources/img/reading/");
+                    fileWriter.write(level.toLowerCase());
+                    fileWriter.write("/reading-");
+                    fileWriter.write(level.toLowerCase());
+                    fileWriter.write("-");
+                    fileWriter.write(String.valueOf(task.getId()));
+                    fileWriter.write("/reading-");
+                    fileWriter.write(level.toLowerCase());
+                    fileWriter.write("-");
+                    fileWriter.write(String.valueOf(task.getId()));
+                    fileWriter.write(".jpg\" />\\\" alt=\"Picture\" />");
+                }
                 fileWriter.write("<br>\n");
                 fileWriter.write(text);
                 fileWriter.write("<br>\n" +

@@ -98,7 +98,18 @@ CHAT
 <form:form action="/listening/">
     <button type="submit">Listening</button>
 </form:form>
-
+<br>
+<br>
+<form:form action="/GV/Grammar">
+    <button type="submit">Grammar</button>
+</form:form>
+<br>
+<br>
+<form:form action="/GV/Vocabulary">
+    <button type="submit">Vocabulary</button>
+</form:form>
+<br>
+<br>
 
 
 

@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 
 @EnableTransactionManagement
 @Controller
@@ -29,8 +27,7 @@ public class AuthenticationRegistrationController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Value("${folder.path}")
-    private String baseFolder;
+
 
 
 
@@ -84,7 +81,6 @@ public class AuthenticationRegistrationController {
             ,@ModelAttribute("pass2Att") String pas2)
     {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("bindingresults======"+bindingResult);
         if(bindingResult.hasErrors()) {
             modelAndView.setViewName("auth_and_reg-views/registration-view");
         }

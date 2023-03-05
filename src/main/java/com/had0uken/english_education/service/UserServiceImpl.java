@@ -29,6 +29,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserDao userDao;
 
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userDao.findById(s);
+
+        if (user == null) throw new UsernameNotFoundException("Invalid email or password");
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+
+        for(Role role: user.getRoleSet())
+            authorityList.add(new SimpleGrantedAuthority(role.getRoleName()));
+        return new org.springframework.security.core.userdetails.User(s, user.getPassword(), user.getEnabled(), true, true, true, authorityList);
+    }
 
 
     @Transactional
@@ -50,18 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     }
 
-    @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userDao.findById(s);
 
-        if (user == null) throw new UsernameNotFoundException("Invalid email or password");
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-
-        for(Role role: user.getRoleSet())
-            authorityList.add(new SimpleGrantedAuthority(role.getRoleName()));
-        return new org.springframework.security.core.userdetails.User(s, user.getPassword(), user.getEnabled(), true, true, true, authorityList);
-    }
 
     @Transactional
     @Override

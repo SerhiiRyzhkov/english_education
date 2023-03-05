@@ -24,7 +24,7 @@ public class Question implements Serializable {
     @Column(name = "id")
     private int id;
     @Column(name = "question")
-    @Size(min = 20, message = "question must be min 20 symbols")
+    @Size(min = 4, message = "question must be min 4 symbols")
     private String question;
     @NotBlank(message = "answers can not be empty!")
     @Column(name = "answer1")

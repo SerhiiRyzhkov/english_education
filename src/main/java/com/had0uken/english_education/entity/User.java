@@ -50,8 +50,6 @@ public class User implements Serializable{
     private int points;
 
 
-
-
     @ManyToMany(/*cascade = CascadeType.ALL,*/ fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false) }, inverseJoinColumns = {
@@ -151,6 +149,8 @@ public class User implements Serializable{
     public void setPoints(int points) {
         this.points = points;
     }
+
+
 
     @Override
     public String toString() {
