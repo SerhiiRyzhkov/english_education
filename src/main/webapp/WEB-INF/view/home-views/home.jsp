@@ -110,6 +110,15 @@ CHAT
 </form:form>
 <br>
 <br>
+<c:forEach var="word" items="${wordsAtt}">
+
+    ${word.word}
+    <br>
+    ${word.definition}
+    <br>
+</c:forEach>
+
+
 
 
 

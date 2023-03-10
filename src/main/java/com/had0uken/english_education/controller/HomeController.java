@@ -4,6 +4,7 @@ import com.had0uken.english_education.entity.Message;
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.service.MessageService;
 import com.had0uken.english_education.service.UserService;
+import com.had0uken.english_education.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class HomeController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private WordService wordService;
+
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
@@ -38,7 +42,7 @@ public class HomeController {
         modelAndView.addObject("ratingAtt",userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints()-o1.getPoints()).limit(10).collect(Collectors.toList()));
         boolean isFirstVisit = userService.getUser(authentication.getName()).getLevel()==null;
         modelAndView.addObject("isFirstVisitAtt",isFirstVisit);
-        System.out.println("!!!here!!!is First visit=="+isFirstVisit);
+        modelAndView.addObject("wordsAtt", wordService.findAll());
         List<Message> allMessages = messageService.findALL();
         int amountOfVisibleMessages = 20;
         if(allMessages.size()<amountOfVisibleMessages)amountOfVisibleMessages=allMessages.size();

@@ -4,10 +4,12 @@ package com.had0uken.english_education.controller;
 import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
 import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.entity.Word;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.TaskService;
 import com.had0uken.english_education.service.UserService;
 
+import com.had0uken.english_education.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -37,6 +39,8 @@ public class AdminController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private WordService wordService;
 
     @Autowired
     private TaskService taskService;
@@ -360,6 +364,74 @@ public class AdminController {
         return modelAndView;
     }
 
+
+    @RequestMapping("/addWord")
+    public ModelAndView addNewWord(){
+        ModelAndView modelAndView = new ModelAndView();
+        Word word = new Word();
+        modelAndView.addObject("wordAtt", word);
+        modelAndView.setViewName("admin-views/add-word-view");
+        return modelAndView;
+    }
+
+    @RequestMapping("/uploadWord")
+    public ModelAndView uploadWord(@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes,
+
+                                   @ModelAttribute("word") String word,
+                                   @ModelAttribute("definition") String definition,
+                                   @ModelAttribute("example1") String example1,
+                                   @ModelAttribute("example2") String example2,
+                                   @ModelAttribute("example3") String example3,
+                                   @ModelAttribute("part") String part) throws URISyntaxException {
+        ModelAndView modelAndView = new ModelAndView();
+        Word wordObj = new Word(word,part,definition,example1,example2,example3);
+
+
+
+        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
+                .toURI()).getPath());
+        String p=pfile.toString();
+        p=p.substring(0,p.lastIndexOf("\\"));
+        p=p.substring(0,(p.lastIndexOf("\\")+1));
+        StringBuilder sb = new StringBuilder();
+        //src/main/webapp/resources/img/words
+        sb.append(p).append("resources\\img\\words\\");
+
+
+
+
+        modelAndView.setViewName("admin-views/add-word-view");
+
+
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            System.out.println("file is empty");
+
+
+        }
+
+        try {
+
+
+
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(sb + wordObj.getWord().toLowerCase()+".png");
+
+            Files.write(path, bytes);
+            wordService.save(wordObj);
+            redirectAttributes.addFlashAttribute("message",
+                    "You successfully uploaded '" + wordObj.getWord()+".png");
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return modelAndView;
+    }
 
 
 
