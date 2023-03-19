@@ -42,7 +42,7 @@ public class HomeController {
         modelAndView.addObject("ratingAtt",userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints()-o1.getPoints()).limit(10).collect(Collectors.toList()));
         boolean isFirstVisit = userService.getUser(authentication.getName()).getLevel()==null;
         modelAndView.addObject("isFirstVisitAtt",isFirstVisit);
-        modelAndView.addObject("wordsAtt", wordService.findAll());
+        modelAndView.addObject("wordsAtt", wordService.findAll().get(3));
         List<Message> allMessages = messageService.findALL();
         int amountOfVisibleMessages = 20;
         if(allMessages.size()<amountOfVisibleMessages)amountOfVisibleMessages=allMessages.size();

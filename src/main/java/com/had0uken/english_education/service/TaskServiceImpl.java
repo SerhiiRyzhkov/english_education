@@ -17,16 +17,19 @@ public class TaskServiceImpl implements TaskService{
     @Autowired
     private TaskDao taskDao;
 
+    @Transactional
     @Override
     public List<Task> findByParams(Level level, String type, String format){
         return taskDao.findByParams(level, type, format);
     }
 
+    @Transactional
     @Override
     public Task findById(Serializable id){
         return taskDao.findById(id);
     }
 
+    @Transactional
     @Override
     public void save(Task task) {
         taskDao.save(task);

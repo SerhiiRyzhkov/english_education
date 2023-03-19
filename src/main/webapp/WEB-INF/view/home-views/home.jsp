@@ -110,13 +110,29 @@ CHAT
 </form:form>
 <br>
 <br>
-<c:forEach var="word" items="${wordsAtt}">
+
+<form:form action="/irregular/">
+    <button type="submit">Irregular verbs</button>
+</form:form>
+<br>
+
+
+
+<%--<c:forEach var="word" items="${wordsAtt}">
 
     ${word.word}
     <br>
     ${word.definition}
     <br>
-</c:forEach>
+</c:forEach>--%>
+
+<br>
+${wordsAtt.word}
+<br>
+${wordsAtt.definition}
+<br>
+<img src="<c:url value="/resources/img/words/${wordsAtt.word.toLowerCase()}.png" />" alt="Emma" />
+<br>
 
 
 

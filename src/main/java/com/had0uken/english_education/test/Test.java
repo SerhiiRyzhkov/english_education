@@ -9,21 +9,11 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        String s = "D://folder";
-        copyAll(s);
-    }
-
-    public static void copyAll (String s){
-        File source = new File("src/main/webapp/resources");
-        File dest = new File(s);
-        File file = new File(s);
-        if(!file.exists()){
-            file.mkdir();
-            try {
-                FileUtils.copyDirectory(source, dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        String past = "was/were";
+        String [] arr = past.split("/");
+        String answer = "waes";
+        boolean flag =
+        Arrays.asList(arr).contains(answer);
+        System.out.println(flag);
     }
 }
