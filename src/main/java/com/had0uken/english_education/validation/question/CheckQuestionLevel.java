@@ -13,8 +13,10 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CheckQuestionLevelValidator.class)
 public @interface CheckQuestionLevel {
     public String value() default "none";
+
     public String message() default "Level must be chosen according to CEFR standard";
 
     public Class<?>[] groups() default {};
-    public Class<? extends Payload> [] payload() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 }

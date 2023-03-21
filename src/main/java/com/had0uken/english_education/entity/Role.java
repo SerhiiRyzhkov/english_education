@@ -20,13 +20,13 @@ public class Role implements Serializable {
     private int roleId;
 
 
-    @Column(name ="role_name")
+    @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany( fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
-            @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
-            @JoinColumn(name = "email", nullable = false, updatable = false) })
+            @JoinColumn(name = "role_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "email", nullable = false, updatable = false)})
     private Set<User> users = new HashSet<User>(0);
 
     public Role() {

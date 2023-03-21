@@ -10,14 +10,14 @@ import java.util.List;
 
 @Service
 @Transactional
-public class WordServiceImpl implements WordService{
+public class WordServiceImpl implements WordService {
 
     @Autowired
     private WordDao wordDao;
 
     @Transactional
     @Override
-    public List<Word> findAll(){
+    public List<Word> findAll() {
         return wordDao.findALL();
     }
 

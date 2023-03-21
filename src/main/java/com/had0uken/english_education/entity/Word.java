@@ -49,13 +49,13 @@ public class Word implements Serializable {
         this.example1 = example1;
         this.example2 = example2;
         this.example3 = example3;
-        if(parts.equals("verb"))
-        this.color = "Yellow";
-        else if(parts.equals("adjective"))
-            this.color="Blue";
-        else if(parts.equals("adverb"))
-            this.color="Purple";
-        else this.color="Green";
+        if (parts.equals("verb"))
+            this.color = "Yellow";
+        else if (parts.equals("adjective"))
+            this.color = "Blue";
+        else if (parts.equals("adverb"))
+            this.color = "Purple";
+        else this.color = "Green";
 
     }
 

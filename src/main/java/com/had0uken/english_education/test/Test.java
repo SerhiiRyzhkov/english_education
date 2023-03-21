@@ -5,15 +5,22 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        String past = "was/were";
-        String [] arr = past.split("/");
-        String answer = "waes";
-        boolean flag =
-        Arrays.asList(arr).contains(answer);
-        System.out.println(flag);
-    }
+        Date date = new Date();
+        System.out.println(date);
+        System.out.println(date.getDate());
+
+
+        int chislo=21;
+        int mounth =11;
+
+        int hash = chislo*((mounth%2)+1);
+        System.out.println(hash);
+
+
+         }
 }

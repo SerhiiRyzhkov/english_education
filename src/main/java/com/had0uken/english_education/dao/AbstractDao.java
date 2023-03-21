@@ -13,7 +13,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 public abstract class AbstractDao<E extends Serializable> implements EntityDao<E> {
     private final Class<E> entityClass;
 
@@ -46,9 +45,9 @@ public abstract class AbstractDao<E extends Serializable> implements EntityDao<E
 
     @Override
     public E findByColumn(String column, String input) {
-        Query query = getSession().createQuery("select e from " + entityClass.getSimpleName()+ " e where e."+
+        Query query = getSession().createQuery("select e from " + entityClass.getSimpleName() + " e where e." +
                 ":column = :input").setParameter("input", input).setParameter("column", column);
-        return (E)query.getSingleResult();
+        return (E) query.getSingleResult();
     }
 }
 

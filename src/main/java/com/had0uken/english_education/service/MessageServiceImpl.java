@@ -11,13 +11,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private MessageDao messageDao;
 
 
-    public List<Message> findALL(){
+    public List<Message> findALL() {
         return messageDao.findALL();
     }
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 @Repository
-public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
+public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -20,30 +20,31 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
+
     @Override
     public void banUser(Serializable id) {
-        User user = getSession().get(User.class,id);
+        User user = getSession().get(User.class, id);
         user.setEnabled(false);
         getSession().merge(user);
     }
 
     @Override
     public void unBanUser(Serializable id) {
-        User user = getSession().get(User.class,id);
+        User user = getSession().get(User.class, id);
         user.setEnabled(true);
         getSession().merge(user);
     }
 
     @Override
     public void setLevel(Serializable id, Level level) {
-        User user = getSession().get(User.class,id);
+        User user = getSession().get(User.class, id);
         user.setLevel(level.toString());
     }
 
     @Override
-    public void increasePoints(Serializable id, int points){
-        User user = getSession().get(User.class,id);
-        user.setPoints(user.getPoints()+points);
+    public void increasePoints(Serializable id, int points) {
+        User user = getSession().get(User.class, id);
+        user.setPoints(user.getPoints() + points);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao  {
 
     @Override
     public void saveUser(User user) {
-        user.addRole(new Role(1,"ROLE_USER"));
+        user.addRole(new Role(1, "ROLE_USER"));
         getSession().save(user);
     }
 }

@@ -20,24 +20,25 @@ public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDa
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
+
     @Override
     public List<Question> getListOfQuestions(String format) {
         System.out.println(getSession().createQuery("from Question where format = :formatParam").
-                setParameter("formatParam",format).
+                setParameter("formatParam", format).
                 getResultList());
-     return getSession().createQuery("from Question where format = :formatParam").
-             setParameter("formatParam",format).
-             getResultList();
+        return getSession().createQuery("from Question where format = :formatParam").
+                setParameter("formatParam", format).
+                getResultList();
     }
 
     @Override
     public List<Question> getListOfQuestions(Level level, String type, String format, int sourceId) {
         return getSession().createQuery("from Question  where " +
-                "level=:levelParam and type=:typeParam and format=:formatParam and sourceId=:sourceIdParam")
-                .setParameter("levelParam",level.toString())
-                .setParameter("typeParam",type)
-                .setParameter("formatParam",format)
-                .setParameter("sourceIdParam",sourceId)
+                        "level=:levelParam and type=:typeParam and format=:formatParam and sourceId=:sourceIdParam")
+                .setParameter("levelParam", level.toString())
+                .setParameter("typeParam", type)
+                .setParameter("formatParam", format)
+                .setParameter("sourceIdParam", sourceId)
                 .getResultList();
     }
 

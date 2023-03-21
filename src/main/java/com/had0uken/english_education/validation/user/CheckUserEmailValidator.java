@@ -5,12 +5,13 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckUserEmailValidator implements ConstraintValidator<CheckUserEmail,String> {
+public class CheckUserEmailValidator implements ConstraintValidator<CheckUserEmail, String> {
 
     private String emailReg;
+
     @Override
     public void initialize(CheckUserEmail constraintAnnotation) {
-        emailReg="\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*\\.\\w{2,4}";
+        emailReg = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*\\.\\w{2,4}";
     }
 
     @Override

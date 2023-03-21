@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class IrregularServiceImpl implements IrregularService{
+public class IrregularServiceImpl implements IrregularService {
 
     @Autowired
     private IrregularDao irregularDao;

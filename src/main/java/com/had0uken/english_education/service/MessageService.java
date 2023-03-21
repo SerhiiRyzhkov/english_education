@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface MessageService {
     public List<Message> findALL();
+
     public void save(Message message);
 }

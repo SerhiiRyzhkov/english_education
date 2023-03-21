@@ -14,7 +14,6 @@ import java.io.File;
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 
-
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{MyConfig.class};
@@ -32,10 +31,12 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 
     @Override
     protected Filter[] getServletFilters() {
-        return new Filter[] { new HiddenHttpMethodFilter(),
-                new CharacterEncodingFilter("UTF-16", true, true) };
+        return new Filter[]{new HiddenHttpMethodFilter(),
+                new CharacterEncodingFilter("UTF-16", true, true)};
     }
+
     private int maxUploadSizeInMb = 20 * 1024 * 1024; // 20 MB
+
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         // upload temp file will put here

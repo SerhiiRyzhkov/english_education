@@ -16,7 +16,7 @@ public class Message implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private User user;
 
     @Column(name = "message")
@@ -29,7 +29,7 @@ public class Message implements Serializable {
     public Message() {
     }
 
-    public Message( User user, String message, Date timestamp) {
+    public Message(User user, String message, Date timestamp) {
 
         this.user = user;
         this.message = message;

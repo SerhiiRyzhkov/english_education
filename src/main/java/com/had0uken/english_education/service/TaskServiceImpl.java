@@ -12,20 +12,26 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TaskServiceImpl implements TaskService{
+public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskDao taskDao;
 
     @Transactional
     @Override
-    public List<Task> findByParams(Level level, String type, String format){
+    public List<Task> findByParams(Level level, String type, String format) {
         return taskDao.findByParams(level, type, format);
     }
 
     @Transactional
     @Override
-    public Task findById(Serializable id){
+    public List<Task> findByParams(String type, String format) {
+        return taskDao.findByParams(type, format);
+    }
+
+    @Transactional
+    @Override
+    public Task findById(Serializable id) {
         return taskDao.findById(id);
     }
 

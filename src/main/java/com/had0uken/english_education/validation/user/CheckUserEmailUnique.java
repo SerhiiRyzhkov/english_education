@@ -12,8 +12,10 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CheckUserEmailUniqueValidator.class)
 public @interface CheckUserEmailUnique {
     public String value() default "none";
+
     public String message() default "A user is already registered with this e-mail address";
 
     public Class<?>[] groups() default {};
-    public Class<? extends Payload> [] payload() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 }

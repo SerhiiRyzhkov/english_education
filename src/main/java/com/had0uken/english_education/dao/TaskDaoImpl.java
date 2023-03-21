@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao{
+public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,8 +23,16 @@ public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao{
     @Override
     public List<Task> findByParams(Level level, String type, String format) {
         return getSession().createQuery("from Task where level=:levelParam and" +
-                " type=:typeParam and format=:formatParam")
+                        " type=:typeParam and format=:formatParam")
                 .setParameter("levelParam", level.toString())
+                .setParameter("typeParam", type)
+                .setParameter("formatParam", format)
+                .getResultList();
+    }
+
+    @Override
+    public List<Task> findByParams(String type, String format) {
+        return getSession().createQuery("from Task where type=:typeParam and format=:formatParam")
                 .setParameter("typeParam", type)
                 .setParameter("formatParam", format)
                 .getResultList();

@@ -16,6 +16,6 @@ public class CheckQuestionLevelValidator implements ConstraintValidator<CheckQue
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return Arrays.stream(Level.values()).map(Enum::toString).anyMatch(l->l.equals(s));
+        return Arrays.stream(Level.values()).map(Enum::toString).anyMatch(l -> l.equals(s));
     }
 }

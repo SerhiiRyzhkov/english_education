@@ -13,8 +13,10 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CheckCorrectAnswerValidator.class)
 public @interface CheckCorrectAnswer {
     public String value() default "-";
+
     public String message() default "correct answer must be between 1 and 3!";
 
     public Class<?>[] groups() default {};
-    public Class<? extends Payload> [] payload() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 }

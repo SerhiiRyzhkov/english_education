@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleDao roleDao;
 

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) throw new UsernameNotFoundException("Invalid email or password");
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
-        for(Role role: user.getRoleSet())
+        for (Role role : user.getRoleSet())
             authorityList.add(new SimpleGrantedAuthority(role.getRoleName()));
         return new org.springframework.security.core.userdetails.User(s, user.getPassword(), user.getEnabled(), true, true, true, authorityList);
     }
@@ -63,12 +63,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-
     @Transactional
     @Override
     public void banUser(String username) {
         userDao.banUser(username);
     }
+
     @Transactional
     @Override
     public void unBanUser(String username) {
@@ -78,13 +78,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void setLevel(Serializable id, Level level) {
-        userDao.setLevel(id,level);
+        userDao.setLevel(id, level);
     }
+
     @Transactional
     @Override
     public void increasePoints(Serializable id, int points) {
-        userDao.increasePoints(id,points);
+        userDao.increasePoints(id, points);
     }
+
     @Transactional
     @Override
     public boolean isPresent(Serializable id) {

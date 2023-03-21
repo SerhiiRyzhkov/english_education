@@ -18,7 +18,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 8167906830939483475L;
@@ -52,8 +52,8 @@ public class User implements Serializable{
 
     @ManyToMany(/*cascade = CascadeType.ALL,*/ fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
-            @JoinColumn(name = "email", nullable = false, updatable = false) }, inverseJoinColumns = {
-            @JoinColumn(name = "role_id", nullable = false, updatable = false) })
+            @JoinColumn(name = "email", nullable = false, updatable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "role_id", nullable = false, updatable = false)})
     private Set<Role> roleSet = new HashSet<>(0);
 
     public User() {
@@ -70,14 +70,15 @@ public class User implements Serializable{
         this.mobile = mobile;
         this.level = level;
         this.roleSet = roleSet;
-        this.points=points;
+        this.points = points;
     }
 
 
-    public void addRole(Role role){
-        if(roleSet==null)roleSet=new HashSet<>();
+    public void addRole(Role role) {
+        if (roleSet == null) roleSet = new HashSet<>();
         roleSet.add(role);
     }
+
     public String getEmail() {
         return email;
     }
@@ -149,7 +150,6 @@ public class User implements Serializable{
     public void setPoints(int points) {
         this.points = points;
     }
-
 
 
     @Override

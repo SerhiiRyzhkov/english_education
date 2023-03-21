@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     QuestionDao questionDao;
@@ -22,6 +22,7 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Question> getAllQuestions() {
         return questionDao.findALL();
     }
+
     @Transactional
     @Override
     public void save(Question question) {
@@ -37,8 +38,9 @@ public class QuestionServiceImpl implements QuestionService{
     @Transactional
     @Override
     public List<Question> getListOfQuestions(Level level, String type, String format, int sourceId) {
-        return questionDao.getListOfQuestions(level,type,format,sourceId);
+        return questionDao.getListOfQuestions(level, type, format, sourceId);
     }
+
     @Transactional
     @Override
     public List<Question> getListOfQuestions(int sourceId) {

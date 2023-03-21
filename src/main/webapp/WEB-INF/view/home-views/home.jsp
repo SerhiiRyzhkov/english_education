@@ -116,6 +116,13 @@ CHAT
 </form:form>
 <br>
 
+<br>
+
+<form:form action="/speaking/">
+    <button type="submit">Speaking</button>
+</form:form>
+<br>
+
 
 
 <%--<c:forEach var="word" items="${wordsAtt}">

@@ -30,6 +30,10 @@
   <input type="submit" value="ADD NEW WORD OF THE DAY">
 </form:form>
 <br><br>
+<form:form action="admin/addSpeaking">
+  <input type="submit" value="ADD NEW SPEAKING">
+</form:form>
+<br><br>
 <form:form action="logout">
   <div>
     <button type="submit">Logout</button>

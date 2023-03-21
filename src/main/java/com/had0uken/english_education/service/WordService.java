@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface WordService {
 
-    public List<Word>findAll();
+    public List<Word> findAll();
+
     public void save(Word word);
 }

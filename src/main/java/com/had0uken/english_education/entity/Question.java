@@ -1,8 +1,6 @@
 package com.had0uken.english_education.entity;
 
 
-
-
 import com.had0uken.english_education.validation.question.CheckCorrectAnswer;
 import com.had0uken.english_education.validation.question.CheckQuestionLevel;
 
@@ -14,7 +12,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="questions")
+@Table(name = "questions")
 public class Question implements Serializable {
 
     @Serial
@@ -52,12 +50,11 @@ public class Question implements Serializable {
     private int sourceId;
 
 
-
     public Question() {
     }
 
-    public Question(int id, String question, String answer1, String answer2, String answer3, int correctAnswer, String level, String type, String format, int sourceId) {
-        this.id = id;
+    public Question(String question, String answer1, String answer2, String answer3, int correctAnswer, String level, String type, String format, int sourceId) {
+
         this.question = question;
         this.answer1 = answer1;
         this.answer2 = answer2;
@@ -66,7 +63,7 @@ public class Question implements Serializable {
         this.level = level;
         this.type = type;
         this.format = format;
-        this.sourceId=sourceId;
+        this.sourceId = sourceId;
 
 
     }

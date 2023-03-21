@@ -17,27 +17,27 @@ import java.util.*;
 @RequestMapping("/irregular")
 public class IrregularController {
 
-    private final int AMOUNT_OF_VERBS=3;
+    private final int AMOUNT_OF_VERBS = 3;
 
     private List<Irregular> verbs;
     private List<Irregular> answers;
 
     @Autowired
     public IrregularController(IrregularService irregularService) {
-        this.verbs=irregularService.getAllIrregulars();
-        this.answers=new ArrayList<>();
+        this.verbs = irregularService.getAllIrregulars();
+        this.answers = new ArrayList<>();
 
     }
 
     @RequestMapping("/")
-    public ModelAndView showStartView(){
+    public ModelAndView showStartView() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("irregular-views\\\\start-view");
         return modelAndView;
     }
 
     @RequestMapping("/showVerbs")
-    public ModelAndView showVerbs(){
+    public ModelAndView showVerbs() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("allVerbsAtt", verbs);
         modelAndView.setViewName("irregular-views\\\\show-verbs-view");
@@ -45,14 +45,14 @@ public class IrregularController {
     }
 
     @RequestMapping("/practiseVerbs")
-    public ModelAndView practice(){
+    public ModelAndView practice() {
         ModelAndView modelAndView = new ModelAndView();
         answers.clear();
         Random random = new Random();
         Set<Integer> set = new HashSet<>();
-        while (set.size()<AMOUNT_OF_VERBS) set.add(random.nextInt(verbs.size()));
+        while (set.size() < AMOUNT_OF_VERBS) set.add(random.nextInt(verbs.size()));
 
-        for(Integer i:set)answers.add(verbs.get(i));
+        for (Integer i : set) answers.add(verbs.get(i));
         modelAndView.addObject("verbsAtt", answers);
 
 
@@ -62,10 +62,10 @@ public class IrregularController {
 
     @RequestMapping("/check")
     public ModelAndView check(
-            @RequestParam Map<String,String> allRequestParams
+            @RequestParam Map<String, String> allRequestParams
 
 
-    ){
+    ) {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("here88!!");
         System.out.println(answers);
@@ -74,30 +74,30 @@ public class IrregularController {
             System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
 
-        Map<Irregular,Boolean> map = new LinkedHashMap<>();
-        for(int i=0;i<answers.size();i++)
-        {
+        Map<Irregular, Boolean> map = new LinkedHashMap<>();
+        for (int i = 0; i < answers.size(); i++) {
 
             Irregular irregular = answers.get(i);
 
-            if(
-                    (Arrays.asList(irregular.getPast().split("/")).contains(allRequestParams.get(i+"_past")))&&
-                    (Arrays.asList(irregular.getParticiple().split("/")).contains(allRequestParams.get(i+"_participle")))
+            if (
+                    (Arrays.asList(irregular.getPast().split("/")).contains(allRequestParams.get(i + "_past"))) &&
+                            (Arrays.asList(irregular.getParticiple().split("/")).contains(allRequestParams.get(i + "_participle")))
             )
-                map.put(irregular,true);
-            else map.put(irregular,false);
+                map.put(irregular, true);
+            else map.put(irregular, false);
         }
 
         for (Map.Entry<Irregular, Boolean> entry : map.entrySet()) {
             System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
-        modelAndView.addObject("verbsAtt",map);
+        modelAndView.addObject("verbsAtt", map);
         modelAndView.setViewName("irregular-views\\\\check-view");
         return modelAndView;
 
     }
+
     @RequestMapping("/next")
-    public ModelAndView next(){
+    public ModelAndView next() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("redirect:/irregular/practiseVerbs");

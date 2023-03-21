@@ -13,6 +13,8 @@ public interface TaskService {
 
     public List<Task> findByParams(Level level, String type, String format);
 
+    public List<Task> findByParams(String type, String format);
+
     public Task findById(Serializable id);
 
     public void save(Task task);

@@ -12,8 +12,10 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CheckUserMobileValidator.class)
 public @interface CheckUserMobile {
     public String value() default "none";
+
     public String message() default "You phone number must be in the form +XXXXXXXXXXXX";
 
     public Class<?>[] groups() default {};
-    public Class<? extends Payload> [] payload() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 }

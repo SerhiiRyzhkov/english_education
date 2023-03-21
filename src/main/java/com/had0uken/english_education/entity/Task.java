@@ -36,8 +36,7 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(int id, String name, String title, String level, String type, String format) {
-        this.id = id;
+    public Task(String name, String title, String level, String type, String format) {
         this.name = name;
         this.title=title;
         this.level = level;

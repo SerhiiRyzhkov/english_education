@@ -52,28 +52,27 @@ public class GrammarVocabularyController {
 
 
     @RequestMapping("/Grammar")
-    public ModelAndView showGrammar(){
+    public ModelAndView showGrammar() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("grammar-vocabulary-views\\\\grammar-levels-view");
         return modelAndView;
     }
 
     @RequestMapping("/Vocabulary")
-    public ModelAndView showVocabulary(){
+    public ModelAndView showVocabulary() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("grammar-vocabulary-views\\\\vocabulary-levels-view");
         return modelAndView;
     }
 
 
-
     @RequestMapping("/Vocabulary/test")
-    public ModelAndView vocabularyTasks(@RequestParam("level") String levelAtt){
+    public ModelAndView vocabularyTasks(@RequestParam("level") String levelAtt) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Level level=
-                Arrays.stream(Level.values()).filter(e->e.toString().equals(levelAtt)).findFirst().get();
-        List<Question> allQuestions = questionService.getListOfQuestions(level,"Vocabulary","simple",0);
+        Level level =
+                Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
+        List<Question> allQuestions = questionService.getListOfQuestions(level, "Vocabulary", "simple", 0);
 
         Random random = new Random();
         totalPoints = 0;
@@ -90,12 +89,12 @@ public class GrammarVocabularyController {
     }
 
     @RequestMapping("/Grammar/test")
-    public ModelAndView grammarTask(@RequestParam("level") String levelAtt){
+    public ModelAndView grammarTask(@RequestParam("level") String levelAtt) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Level level=
-                Arrays.stream(Level.values()).filter(e->e.toString().equals(levelAtt)).findFirst().get();
-        List<Question> allQuestions = questionService.getListOfQuestions(level,"Grammar","simple",0);
+        Level level =
+                Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
+        List<Question> allQuestions = questionService.getListOfQuestions(level, "Grammar", "simple", 0);
 
         Random random = new Random();
         totalPoints = 0;
@@ -112,20 +111,16 @@ public class GrammarVocabularyController {
     }
 
     @RequestMapping("/test")
-    public ModelAndView test(){
+    public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
-        if(index<AMOUNT_OF_QUESTIONS)
-        {
-            modelAndView.addObject("curQuestionAtt",currentQuestions.get(index));
-            modelAndView.addObject("indexAtt",index);
-            modelAndView.addObject("amountAtt",AMOUNT_OF_QUESTIONS);
+        if (index < AMOUNT_OF_QUESTIONS) {
+            modelAndView.addObject("curQuestionAtt", currentQuestions.get(index));
+            modelAndView.addObject("indexAtt", index);
+            modelAndView.addObject("amountAtt", AMOUNT_OF_QUESTIONS);
             modelAndView.setViewName("grammar-vocabulary-views\\\\roll-question-view");
 
-        }
-
-        else
-        {
-            index=0;
+        } else {
+            index = 0;
             currentQuestions.clear();
             modelAndView.addObject("totalPointsAtt", totalPoints);
             modelAndView.addObject("userPointsAtt", userPoints);
@@ -140,22 +135,19 @@ public class GrammarVocabularyController {
         ModelAndView modelAndView = new ModelAndView();
         Question theQuestion = currentQuestions.get(index);
         totalPoints += pointCounter.getPoints(theQuestion);
-        if (choice == theQuestion.getCorrectAnswer()){
+        if (choice == theQuestion.getCorrectAnswer()) {
             userPoints += pointCounter.getPoints(theQuestion);
-            userService.increasePoints(authentication.getName(),pointCounter.getPoints(theQuestion));
+            userService.increasePoints(authentication.getName(), pointCounter.getPoints(theQuestion));
         }
-        modelAndView.addObject("curQuestionAtt",currentQuestions.get(index));
-        modelAndView.addObject("indexAtt",index);
-        modelAndView.addObject("amountAtt",AMOUNT_OF_QUESTIONS);
-        modelAndView.addObject("answerAtt",currentQuestions.get(index).getCorrectAnswer());
+        modelAndView.addObject("curQuestionAtt", currentQuestions.get(index));
+        modelAndView.addObject("indexAtt", index);
+        modelAndView.addObject("amountAtt", AMOUNT_OF_QUESTIONS);
+        modelAndView.addObject("answerAtt", currentQuestions.get(index).getCorrectAnswer());
         index++;
         modelAndView.setViewName("grammar-vocabulary-views\\\\show-correct-result");
         return modelAndView;
 
     }
-
-
-
 
 
 }

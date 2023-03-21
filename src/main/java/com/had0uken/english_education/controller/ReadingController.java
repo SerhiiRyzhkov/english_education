@@ -45,7 +45,7 @@ public class ReadingController {
     private LevelCounter levelCounter;
 
 
-   //starting index of question from currentQuestions list
+    //starting index of question from currentQuestions list
     private int index = 0;
     //Max value of possible points of a test
     private int totalPoints = 0;
@@ -54,7 +54,7 @@ public class ReadingController {
     private Task currentTask = null;
 
     @RequestMapping("/")
-    public ModelAndView reading(){
+    public ModelAndView reading() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("reading-views\\\\reading-practice-test");
         return modelAndView;
@@ -75,11 +75,11 @@ public class ReadingController {
     }*/
 
     @RequestMapping("/tasks")
-    public ModelAndView tasks(@RequestParam("level") String levelAtt){
+    public ModelAndView tasks(@RequestParam("level") String levelAtt) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Level level=
-                Arrays.stream(Level.values()).filter(e->e.toString().equals(levelAtt)).findFirst().get();
+        Level level =
+                Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
         List<Task> ReadingTasks = taskService.findByParams(level, "Reading", "reading");
         modelAndView.addObject("tasksAtt", ReadingTasks);
 
@@ -92,18 +92,16 @@ public class ReadingController {
     public ModelAndView showTask(@RequestParam("taskId") int taskId) {
         ModelAndView modelAndView = new ModelAndView();
         Task task = taskService.findById(taskId);
-        currentTask=task;
-        if(questions==null) questions=questionService.getListOfQuestions(taskId);
+        currentTask = task;
+        if (questions == null) questions = questionService.getListOfQuestions(taskId);
 
-        if(index<questions.size()) {
+        if (index < questions.size()) {
             modelAndView.addObject("curQuestionAtt", questions.get(index));
             modelAndView.addObject("amountAtt", questions.size());
             modelAndView.addObject("indexAtt", index);
-            System.out.println("here!!11"+getTaskViewName(task));
+            System.out.println("here!!11" + getTaskViewName(task));
             modelAndView.setViewName(getTaskViewName(task));
-        }
-        else
-        {
+        } else {
             modelAndView.setViewName("redirect:/reading/showResult");
         }
         return modelAndView;
@@ -111,17 +109,17 @@ public class ReadingController {
 
 
     @RequestMapping("/receive")
-    public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication){
+    public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
 
         Question question = questions.get(index);
 
 
-        totalPoints+=pointCounter.getPoints(question);
+        totalPoints += pointCounter.getPoints(question);
 
-        if(choice==question.getCorrectAnswer()){
-            userPoints+=pointCounter.getPoints(question);
-            userService.increasePoints(authentication.getName(),pointCounter.getPoints(question));
+        if (choice == question.getCorrectAnswer()) {
+            userPoints += pointCounter.getPoints(question);
+            userService.increasePoints(authentication.getName(), pointCounter.getPoints(question));
         }
 
         index++;
@@ -130,7 +128,7 @@ public class ReadingController {
     }
 
     @RequestMapping("/showResult")
-    public ModelAndView showResult(){
+    public ModelAndView showResult() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("totalPointsAtt", totalPoints);
         modelAndView.addObject("userPointsAtt", userPoints);
@@ -138,12 +136,11 @@ public class ReadingController {
         totalPoints = 0;
         userPoints = 0;
         currentTask = null;
-        questions=null;
+        questions = null;
 
         modelAndView.setViewName("reading-views\\\\show-reading-test-result");
         return modelAndView;
     }
-
 
 
     private String getTaskViewName(Task task) {

@@ -6,5 +6,5 @@ import com.had0uken.english_education.entity.User;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IrregularDao extends EntityDao<Irregular>{
+public interface IrregularDao extends EntityDao<Irregular> {
 }

@@ -49,7 +49,6 @@ public class TestController {
     private int userPoints = 0;
 
 
-
     @RequestMapping("/testStart")
     public String showTestView() {
         List<Question> allQuestions = questionService.getListOfQuestions("simple");
@@ -81,26 +80,25 @@ public class TestController {
             model.addAttribute("userPointsAtt", userPoints);
             model.addAttribute("levelAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getLevel());
             model.addAttribute("adviceAtt", levelCounter.getLevelByScore(totalPoints, userPoints).getDescription());
-            Level level = levelCounter.getLevelByScore(totalPoints,userPoints);
+            Level level = levelCounter.getLevelByScore(totalPoints, userPoints);
             userService.setLevel(authentication.getName(), level);
-            totalPoints=0;
-            userPoints=0;
+            totalPoints = 0;
+            userPoints = 0;
             return "start-test-views/test-final-view";
         }
     }
 
     @RequestMapping("/receive")
-    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice,Authentication authentication) {
-
+    public String receiveAnswer(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication) {
 
 
         Question theQuestion = currentQuestions.get(index);
 
         totalPoints += pointCounter.getPoints(theQuestion);
 
-        if (choice == theQuestion.getCorrectAnswer()){
+        if (choice == theQuestion.getCorrectAnswer()) {
             userPoints += pointCounter.getPoints(theQuestion);
-            userService.increasePoints(authentication.getName(),pointCounter.getPoints(theQuestion));
+            userService.increasePoints(authentication.getName(), pointCounter.getPoints(theQuestion));
         }
 
         return "redirect:/test/testing";

@@ -14,9 +14,11 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CheckUserEmailValidator.class)
 public @interface CheckUserEmail {
     public String value() default "none";
+
     public String message() default "You should use a valid email";
 
     public Class<?>[] groups() default {};
-    public Class<? extends Payload> [] payload() default {};
+
+    public Class<? extends Payload>[] payload() default {};
 
 }

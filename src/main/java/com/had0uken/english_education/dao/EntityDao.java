@@ -5,8 +5,11 @@ import java.util.List;
 
 public interface EntityDao<E extends Serializable> {
     E findById(Serializable id);
+
     void save(E entity);
+
     List<E> findALL();
+
     E findByColumn(String column, String input);
 
 }

@@ -28,11 +28,6 @@ public class AuthenticationRegistrationController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-
-
-
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginPage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -43,18 +38,13 @@ public class AuthenticationRegistrationController {
     }
 
 
-
-
     @RequestMapping("/homeReff")
-    public ModelAndView adminPageRedirection(){
+    public ModelAndView adminPageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/home");
         return modelAndView;
 
     }
-
-
-
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -67,29 +57,26 @@ public class AuthenticationRegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration(){
+    public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("newUserAtt",new User());
+        modelAndView.addObject("newUserAtt", new User());
         modelAndView.setViewName("auth_and_reg-views/registration-view");
         return modelAndView;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@Valid @ModelAttribute("newUserAtt") User user
-            ,BindingResult bindingResult
-            ,@ModelAttribute("pass1Att") String pas1
-            ,@ModelAttribute("pass2Att") String pas2)
-    {
+            , BindingResult bindingResult
+            , @ModelAttribute("pass1Att") String pas1
+            , @ModelAttribute("pass2Att") String pas2) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             modelAndView.setViewName("auth_and_reg-views/registration-view");
-        }
-        else {
-            if(!pas1.equals(pas2)) {
+        } else {
+            if (!pas1.equals(pas2)) {
                 modelAndView.setViewName("auth_and_reg-views/registration-view");
-                modelAndView.addObject("messageAtt","Passwords do not match!");
-            }
-            else {
+                modelAndView.addObject("messageAtt", "Passwords do not match!");
+            } else {
                 modelAndView.setViewName("auth_and_reg-views/succes-registation-view");
                 user.setPassword(bCryptPasswordEncoder.encode(pas1));
                 user.setEnabled(true);

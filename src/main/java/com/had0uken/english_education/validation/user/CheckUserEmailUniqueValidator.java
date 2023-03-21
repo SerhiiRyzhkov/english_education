@@ -8,11 +8,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class CheckUserEmailUniqueValidator implements ConstraintValidator<CheckUserEmailUnique,String> {
+public class CheckUserEmailUniqueValidator implements ConstraintValidator<CheckUserEmailUnique, String> {
 
     @Autowired
     private UserService userService;
-
 
 
     @Override
@@ -22,7 +21,7 @@ public class CheckUserEmailUniqueValidator implements ConstraintValidator<CheckU
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        if(userService==null)return true;
+        if (userService == null) return true;
         return !userService.isPresent(s);
     }
 

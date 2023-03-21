@@ -53,18 +53,18 @@ public class ListeningController {
     private Task currentTask = null;
 
     @RequestMapping("/")
-    public ModelAndView reading(){
+    public ModelAndView reading() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("listening-views\\\\listening-practice-test");
         return modelAndView;
     }
 
     @RequestMapping("/tasks")
-    public ModelAndView tasks(@RequestParam("level") String levelAtt){
+    public ModelAndView tasks(@RequestParam("level") String levelAtt) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Level level=
-                Arrays.stream(Level.values()).filter(e->e.toString().equals(levelAtt)).findFirst().get();
+        Level level =
+                Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
         List<Task> ListeningTasks = taskService.findByParams(level, "Listening", "audio");
         modelAndView.addObject("tasksAtt", ListeningTasks);
 
@@ -76,34 +76,32 @@ public class ListeningController {
     public ModelAndView showTask(@RequestParam("taskId") int taskId) {
         ModelAndView modelAndView = new ModelAndView();
         Task task = taskService.findById(taskId);
-        currentTask=task;
-        if(questions==null) questions=questionService.getListOfQuestions(taskId);
-        if(index<questions.size()) {
+        currentTask = task;
+        if (questions == null) questions = questionService.getListOfQuestions(taskId);
+        if (index < questions.size()) {
             modelAndView.addObject("curQuestionAtt", questions.get(index));
             modelAndView.addObject("amountAtt", questions.size());
             modelAndView.addObject("indexAtt", index);
             modelAndView.addObject("curTaskAtt", currentTask);
             modelAndView.setViewName("listening-views\\\\listening-task-view");
-        }
-        else
-        {
+        } else {
             modelAndView.setViewName("redirect:/listening/showResult");
         }
         return modelAndView;
     }
 
     @RequestMapping("/receive")
-    public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication){
+    public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
 
         Question question = questions.get(index);
 
 
-        totalPoints+=pointCounter.getPoints(question);
+        totalPoints += pointCounter.getPoints(question);
 
-        if(choice==question.getCorrectAnswer()){
-            userPoints+=pointCounter.getPoints(question);
-            userService.increasePoints(authentication.getName(),pointCounter.getPoints(question));
+        if (choice == question.getCorrectAnswer()) {
+            userPoints += pointCounter.getPoints(question);
+            userService.increasePoints(authentication.getName(), pointCounter.getPoints(question));
         }
 
         index++;
@@ -112,7 +110,7 @@ public class ListeningController {
     }
 
     @RequestMapping("/showResult")
-    public ModelAndView showResult(){
+    public ModelAndView showResult() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("totalPointsAtt", totalPoints);
         modelAndView.addObject("userPointsAtt", userPoints);
@@ -120,7 +118,7 @@ public class ListeningController {
         totalPoints = 0;
         userPoints = 0;
         currentTask = null;
-        questions=null;
+        questions = null;
 
         modelAndView.setViewName("listening-views\\\\show-listening-test-result");
         return modelAndView;
