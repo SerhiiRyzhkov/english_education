@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,5 +19,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void save(Role role) {
         save(role);
+    }
+    @Transactional
+    @Override
+    public List<Role> findAll() {
+        return roleDao.findALL();
     }
 }

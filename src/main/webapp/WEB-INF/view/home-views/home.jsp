@@ -17,6 +17,10 @@
 Current user: ${currentUserAtt}
 <br><br>
 
+<br>
+<a href="/cssTest">To css test</a>
+<br>
+
 
 <c:if test="${isFirstVisitAtt}">
     It`s seem like your first visit! We recommend to check your actual level using our test

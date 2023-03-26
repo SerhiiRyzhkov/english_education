@@ -3,6 +3,7 @@ package com.had0uken.english_education.entity;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name="tasks")
@@ -86,6 +87,19 @@ public class Task implements Serializable {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(title, task.title) && Objects.equals(level, task.level) && Objects.equals(type, task.type) && Objects.equals(format, task.format);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, title, level, type, format);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.had0uken.english_education.entity;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "words")
@@ -122,6 +123,19 @@ public class Word implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word1 = (Word) o;
+        return id == word1.id && Objects.equals(word, word1.word) && Objects.equals(parts, word1.parts) && Objects.equals(definition, word1.definition) && Objects.equals(example1, word1.example1) && Objects.equals(example2, word1.example2) && Objects.equals(example3, word1.example3) && Objects.equals(color, word1.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, word, parts, definition, example1, example2, example3, color);
     }
 
     @Override

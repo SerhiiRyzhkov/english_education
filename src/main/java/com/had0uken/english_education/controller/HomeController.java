@@ -35,6 +35,13 @@ public class HomeController {
     @Autowired
     private WordService wordService;
 
+    @RequestMapping("cssTest")
+    public ModelAndView cssTest(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("home-views/testCSS");
+        return modelAndView;
+    }
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
