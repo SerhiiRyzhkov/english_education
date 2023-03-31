@@ -3,6 +3,7 @@ package com.had0uken.english_education.controller;
 import com.had0uken.english_education.entity.Message;
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.entity.Word;
+import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.MessageService;
 import com.had0uken.english_education.service.UserService;
 import com.had0uken.english_education.service.WordService;
@@ -35,24 +36,31 @@ public class HomeController {
     @Autowired
     private WordService wordService;
 
-    @RequestMapping("cssTest")
+   /* @RequestMapping("cssTest")
     public ModelAndView cssTest(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home-views/testCSS");
+        modelAndView.setViewName("home-views/home2");
         return modelAndView;
-    }
+    }*/
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentUserAtt", authentication.getName());
-        modelAndView.addObject("message", "This is home page. It is accessible to all roles.");
-        modelAndView.addObject("ratingAtt", userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints() - o1.getPoints()).limit(10).collect(Collectors.toList()));
-        boolean isFirstVisit = userService.getUser(authentication.getName()).getLevel() == null;
-        modelAndView.addObject("isFirstVisitAtt", isFirstVisit);
+
+        User user = userService.getUser(authentication.getName());
+
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+
+        boolean isFirstVisit = user.getLevel() == null;
+
         Date date = new Date();
         int indexDate = date.getDate() * ((date.getMonth() % 2) + 1);
-        modelAndView.addObject("wordsAtt", wordService.findAll().get(indexDate));
+
         List<Message> allMessages = messageService.findALL();
         int amountOfVisibleMessages = 20;
         if (allMessages.size() < amountOfVisibleMessages) amountOfVisibleMessages = allMessages.size();
@@ -60,8 +68,13 @@ public class HomeController {
         Map<Message, User> messageMap = new LinkedHashMap<>();
         for (Message m : visibleMessages)
             messageMap.put(m, m.getAuthorId());
+        modelAndView.addObject("ratingAtt", userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints() - o1.getPoints()).limit(10).collect(Collectors.toList()));
+        modelAndView.addObject("isFirstVisitAtt", isFirstVisit);
+        modelAndView.addObject("wordsAtt", wordService.findAll().get(indexDate));
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+        modelAndView.addObject("currentUserEntityAtt", user);
         modelAndView.addObject("mapAtt", messageMap);
-        modelAndView.setViewName("home-views/home");
+        modelAndView.setViewName("home-views/home2");
         return modelAndView;
 
     }

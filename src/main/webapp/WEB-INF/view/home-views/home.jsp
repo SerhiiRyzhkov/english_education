@@ -14,8 +14,7 @@
 
 <security:authorize access="hasRole('ADMIN')"><a href='<c:url value="/admin" />'>Admin Page</a></security:authorize>
 <br><br>
-Current user: ${currentUserAtt}
-<br><br>
+
 
 <br>
 <a href="/cssTest">To css test</a>
@@ -42,18 +41,18 @@ Rating of best users
     </tr>
     <c:forEach var="us" items="${ratingAtt}">
         <tr>
-               <c:if test="${us.email==currentUserAtt}">
+            <c:if test="${us.email==currentUserAtt}">
 
                 <th><u>${us.name}</u></th>
                 <th><u>${us.surname}</u></th>
                 <th><u>${us.points}</u></th>
 
-               </c:if>
-                <c:if test="${us.email!=currentUserAtt}">
-                    <td>${us.name}</td>
-                    <td>${us.surname}</td>
-                    <td>${us.points}</td>
-                </c:if>
+            </c:if>
+            <c:if test="${us.email!=currentUserAtt}">
+                <td>${us.name}</td>
+                <td>${us.surname}</td>
+                <td>${us.points}</td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
@@ -66,31 +65,34 @@ Rating of best users
 
 CHAT
 
-            <br>
+<br>S
 
+<c:forEach var="mes" items="${mapAtt}">
+    <c:if test="${mes.value.email!=currentUserAtt}">
+        <a style="">${mes.key.timestamp} <i>${mes.value.name} ${mes.value.surname}:</i> ${mes.key.message}</a>
+        <br>
+    </c:if>
+    <c:if test="${mes.value.email==currentUserAtt}">
+        <a>${mes.key.timestamp} <u><b>${mes.value.name} ${mes.value.surname}:</u></b> ${mes.key.message}</a>
+        <br>
+    </c:if>
 
-            <c:forEach var="mes" items="${mapAtt}">
-                <c:if test="${mes.value.email!=currentUserAtt}">
-                    <a>${mes.key.timestamp} <i>${mes.value.name} ${mes.value.surname}:</i> ${mes.key.message}</a>
-                    <br>
-                </c:if>
-                <c:if test="${mes.value.email==currentUserAtt}">
-                    <a>${mes.key.timestamp} <u><b>${mes.value.name} ${mes.value.surname}:</u></b> ${mes.key.message}</a>
-                    <br>
-                </c:if>
-
-            </c:forEach>
-
-
+</c:forEach>
 
 <form:form action="chatSendMessage">
-    <input type="text"  name="messageAtt">
-        <button type="submit">Send</button>
+    <input type="text"  name="messageAtt" class="inputClass">
+    <button type="submit">Send</button>
 
 </form:form>
 
 <br>
 <br>
+
+
+
+
+
+
 
 <form:form action="/reading/">
     <button type="submit">Reading</button>
@@ -147,7 +149,10 @@ ${wordsAtt.definition}
 
 
 
+<%--<form:form action="logout">--%>
+<%--    <input type="image" src="<c:url value="/resources/style/home/images/3329438-07cf5464.png"/>" class="u-file-icon u-hover-feature u-icon u-text-palette-1-base u-icon-1"/>--%>
 
+<%--</form:form>--%>
 
 
 

@@ -29,11 +29,6 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
         return new String[]{"/"};
     }
 
-    @Override
-    protected Filter[] getServletFilters() {
-        return new Filter[]{new HiddenHttpMethodFilter(),
-                new CharacterEncodingFilter("UTF-16", true, true)};
-    }
 
     private int maxUploadSizeInMb = 20 * 1024 * 1024; // 20 MB
 

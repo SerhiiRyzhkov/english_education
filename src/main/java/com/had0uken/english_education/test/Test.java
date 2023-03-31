@@ -5,22 +5,16 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        Date date = new Date();
-        System.out.println(date);
-        System.out.println(date.getDate());
-
-
-        int chislo=21;
-        int mounth =11;
-
-        int hash = chislo*((mounth%2)+1);
-        System.out.println(hash);
-
+        Timestamp timestamp = new Timestamp(new Date().getTime());
+        System.out.println(timestamp.toString().substring(0,timestamp.toString().lastIndexOf(".")));
+        System.out.println(timestamp.getYear());
+        System.out.println(timestamp);
 
          }
 }
