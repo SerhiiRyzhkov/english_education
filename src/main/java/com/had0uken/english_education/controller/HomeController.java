@@ -36,12 +36,9 @@ public class HomeController {
     @Autowired
     private WordService wordService;
 
-   /* @RequestMapping("cssTest")
-    public ModelAndView cssTest(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home-views/home2");
-        return modelAndView;
-    }*/
+    private boolean openChat=false;
+
+
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView welcomePage(Authentication authentication) {
@@ -68,13 +65,18 @@ public class HomeController {
         Map<Message, User> messageMap = new LinkedHashMap<>();
         for (Message m : visibleMessages)
             messageMap.put(m, m.getAuthorId());
+
         modelAndView.addObject("ratingAtt", userService.getAllUser().stream().sorted((o1, o2) -> o2.getPoints() - o1.getPoints()).limit(10).collect(Collectors.toList()));
         modelAndView.addObject("isFirstVisitAtt", isFirstVisit);
         modelAndView.addObject("wordsAtt", wordService.findAll().get(indexDate));
         modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.addObject("currentUserEntityAtt", user);
         modelAndView.addObject("mapAtt", messageMap);
-        modelAndView.setViewName("home-views/home2");
+        if(openChat)
+            modelAndView.addObject("openChatAtt","block");
+        else modelAndView.addObject("openChatAtt","none");
+        openChat=false;
+        modelAndView.setViewName("home-views\\\\home");
         return modelAndView;
 
     }
@@ -85,6 +87,7 @@ public class HomeController {
         System.out.println(authentication.getName());
         Message newMessage = new Message(userService.getUser(authentication.getName()), message, new Timestamp(new Date().getTime()));
         messageService.save(newMessage);
+        openChat=true;
         modelAndView.setViewName("redirect:/home");
         return modelAndView;
     }

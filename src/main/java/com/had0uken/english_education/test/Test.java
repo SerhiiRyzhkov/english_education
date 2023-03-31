@@ -13,8 +13,7 @@ public class Test {
     public static void main(String[] args) {
         Timestamp timestamp = new Timestamp(new Date().getTime());
         System.out.println(timestamp.toString().substring(0,timestamp.toString().lastIndexOf(".")));
-        System.out.println(timestamp.getYear());
+        timestamp.setNanos(0);
         System.out.println(timestamp);
-
          }
 }

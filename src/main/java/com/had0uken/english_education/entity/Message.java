@@ -24,6 +24,9 @@ public class Message implements Serializable {
 
     @Column(name = "timestamp")
     private Date timestamp;
+    @Transient
+    private String clock;
+
 
 
     public Message() {
@@ -34,6 +37,14 @@ public class Message implements Serializable {
         this.user = user;
         this.message = message;
         this.timestamp = timestamp;
+    }
+
+    public String getClock() {
+        return this.timestamp.toString().substring(0,timestamp.toString().lastIndexOf("."));
+    }
+
+    public void setClock(String clock) {
+        this.clock = clock;
     }
 
     public int getId() {
