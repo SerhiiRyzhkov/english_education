@@ -32,7 +32,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="?Lessons &amp;amp; Practice, ?Meet some of our partners!, ?Integrity. Uniqueness. Enjoyment. Ever Forward., ?Our Mission, Contact Us">
     <meta name="description" content="">
-    <title>Home</title>
+    <title>English Education</title>
     <link rel="stylesheet" href="<c:url value="/resources/style/home/nicepage.css"/>" media="screen">
     <link rel="stylesheet" href="<c:url value="/resources/style/home/Home.css"/>" media="screen">
     <script class="u-script" type="text/javascript" src="<c:url value="/resources/style/home/jquery.js"/>" defer=""></script>
@@ -68,8 +68,7 @@
         }
     </script>
 
-    <%-- <a href="/homeReff"> <img class="u-image u-image-contain u-image-default u-image-1" src="<c:url value="/resources/style/home/images/coollogo_com-828391.png"/>"
-                               alt="" data-image-width="1656" data-image-height="333"></a>--%>
+
 
     <form:form action="logout">
         <input type="image" src="<c:url value="/resources/style/home/images/3329438-07cf5464.png"/>" class="u-file-icon u-hover-feature u-icon u-text-palette-1-base u-icon-1"/>
@@ -509,7 +508,10 @@
                         <div class="u-tab-content">
                             <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-1" id="tab-973f" role="tabpanel" aria-labelledby="link-tab-973f">
                                 <div class="u-container-layout u-container-layout-26">
-                                    <p class="u-align-left u-custom-font u-font-roboto-slab u-text  u-text-25" style="color: ${wordsAtt.color.toLowerCase()}">${wordsAtt.word} (${wordsAtt.parts})</p>
+                                    <p class="u-align-left u-custom-font u-font-roboto-slab u-text  u-text-25" style="color: ${wordsAtt.color.toLowerCase()}; text-shadow: 1px 0 1px #000,
+                                            0 1px 1px #000,
+                                            -1px 0 1px #000,
+                                            0 -1px 1px #000;">${wordsAtt.word} (${wordsAtt.parts})</p>
                                     <p class="u-align-left u-custom-font u-font-roboto-slab u-text u-text-26"> ${wordsAtt.definition}</p>
                                 </div>
                             </div>

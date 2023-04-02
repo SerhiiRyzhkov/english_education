@@ -5,6 +5,7 @@ import com.had0uken.english_education.counters.LevelCounter;
 import com.had0uken.english_education.counters.PointCounter;
 import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
+import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.TaskService;
@@ -52,20 +53,39 @@ public class ListeningController {
     private int userPoints = 0;
     private Task currentTask = null;
 
+    private List<Task> ListeningTasks;
+
     @RequestMapping("/")
-    public ModelAndView reading() {
+    public ModelAndView readingAndListenng(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.setViewName("listening-views\\\\listening-practice-test");
         return modelAndView;
     }
 
     @RequestMapping("/tasks")
-    public ModelAndView tasks(@RequestParam("level") String levelAtt) {
+    public ModelAndView tasks(@RequestParam("level") String levelAtt, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Level level =
                 Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
-        List<Task> ListeningTasks = taskService.findByParams(level, "Listening", "audio");
+        ListeningTasks = taskService.findByParams(level, "Listening", "audio");
         modelAndView.addObject("tasksAtt", ListeningTasks);
 
         modelAndView.setViewName("listening-views\\\\listening-practice-tests-this-level");
@@ -73,9 +93,19 @@ public class ListeningController {
     }
 
     @RequestMapping("/showTask")
-    public ModelAndView showTask(@RequestParam("taskId") int taskId) {
+    public ModelAndView showTask(@RequestParam("taskId") int taskId, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Task task = taskService.findById(taskId);
+
         currentTask = task;
         if (questions == null) questions = questionService.getListOfQuestions(taskId);
         if (index < questions.size()) {
@@ -83,7 +113,8 @@ public class ListeningController {
             modelAndView.addObject("amountAtt", questions.size());
             modelAndView.addObject("indexAtt", index);
             modelAndView.addObject("curTaskAtt", currentTask);
-            modelAndView.setViewName("listening-views\\\\listening-task-view");
+            modelAndView.addObject("tasksAtt", ListeningTasks);
+            modelAndView.setViewName("listening-views\\\\listening-task-view2");
         } else {
             modelAndView.setViewName("redirect:/listening/showResult");
         }

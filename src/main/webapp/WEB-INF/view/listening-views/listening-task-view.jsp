@@ -8,12 +8,7 @@
 <body>
 <h1>${curTaskAtt.level} Listening Test</h1>
 <h2>${curTaskAtt.title}</h2>
-<%--
 
-<img src="<c:url value="/resources/img/reading/c1/14/Banana.jpg" />" alt="Banana" />
-<embed src="<c:url value="/resources/audio/listening/a1/20/20.mp3" />
-Hello from audioSpring!
---%>
 
 <br>
 <p>Click on the play button to play a sound:</p>
