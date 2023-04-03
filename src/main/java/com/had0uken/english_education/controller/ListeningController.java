@@ -114,7 +114,7 @@ public class ListeningController {
             modelAndView.addObject("indexAtt", index);
             modelAndView.addObject("curTaskAtt", currentTask);
             modelAndView.addObject("tasksAtt", ListeningTasks);
-            modelAndView.setViewName("listening-views\\\\listening-task-view2");
+            modelAndView.setViewName("listening-views\\\\listening-task-view");
         } else {
             modelAndView.setViewName("redirect:/listening/showResult");
         }
@@ -141,15 +141,32 @@ public class ListeningController {
     }
 
     @RequestMapping("/showResult")
-    public ModelAndView showResult() {
+    public ModelAndView showResult(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.addObject("totalPointsAtt", totalPoints);
         modelAndView.addObject("userPointsAtt", userPoints);
+        int result;
+        if(userPoints/totalPoints<0.3)result=1;
+        else if(userPoints/totalPoints>0.3) result=3;
+        else result=2;
+        modelAndView.addObject("resultAtt", result);
+        modelAndView.addObject("tasksAtt", ListeningTasks);
+        result=0;
         index = 0;
         totalPoints = 0;
         userPoints = 0;
         currentTask = null;
         questions = null;
+        ListeningTasks.clear();
 
         modelAndView.setViewName("listening-views\\\\show-listening-test-result");
         return modelAndView;
