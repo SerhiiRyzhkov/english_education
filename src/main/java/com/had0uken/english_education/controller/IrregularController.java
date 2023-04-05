@@ -2,8 +2,12 @@ package com.had0uken.english_education.controller;
 
 
 import com.had0uken.english_education.entity.Irregular;
+import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.IrregularService;
+import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/irregular")
 public class IrregularController {
+
+    @Autowired
+    private UserService userService;
 
     private final int AMOUNT_OF_VERBS = 3;
 
@@ -30,23 +37,52 @@ public class IrregularController {
     }
 
     @RequestMapping("/")
-    public ModelAndView showStartView() {
+    public ModelAndView showStartView(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+
+
         modelAndView.setViewName("irregular-views\\\\start-view");
         return modelAndView;
     }
 
     @RequestMapping("/showVerbs")
-    public ModelAndView showVerbs() {
+    public ModelAndView showVerbs(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.addObject("allVerbsAtt", verbs);
         modelAndView.setViewName("irregular-views\\\\show-verbs-view");
         return modelAndView;
     }
 
     @RequestMapping("/practiseVerbs")
-    public ModelAndView practice() {
+    public ModelAndView practice(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         answers.clear();
         Random random = new Random();
         Set<Integer> set = new HashSet<>();
@@ -62,17 +98,22 @@ public class IrregularController {
 
     @RequestMapping("/check")
     public ModelAndView check(
-            @RequestParam Map<String, String> allRequestParams
+            @RequestParam Map<String, String> allRequestParams,
+            Authentication authentication
 
 
     ) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("here88!!");
-        System.out.println(answers);
-        System.out.println("----");
-        for (Map.Entry<String, String> entry : allRequestParams.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
         }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+
 
         Map<Irregular, Boolean> map = new LinkedHashMap<>();
         for (int i = 0; i < answers.size(); i++) {
@@ -87,9 +128,7 @@ public class IrregularController {
             else map.put(irregular, false);
         }
 
-        for (Map.Entry<Irregular, Boolean> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
-        }
+
         modelAndView.addObject("verbsAtt", map);
         modelAndView.setViewName("irregular-views\\\\check-view");
         return modelAndView;
