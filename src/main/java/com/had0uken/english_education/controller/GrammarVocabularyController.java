@@ -4,6 +4,7 @@ import com.had0uken.english_education.counters.LevelCounter;
 import com.had0uken.english_education.counters.PointCounter;
 import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
+import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.UserService;
@@ -52,23 +53,50 @@ public class GrammarVocabularyController {
 
 
     @RequestMapping("/Grammar")
-    public ModelAndView showGrammar() {
+    public ModelAndView showGrammar(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.setViewName("grammar-vocabulary-views\\\\grammar-levels-view");
         return modelAndView;
     }
 
     @RequestMapping("/Vocabulary")
-    public ModelAndView showVocabulary() {
+    public ModelAndView showVocabulary(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.setViewName("grammar-vocabulary-views\\\\vocabulary-levels-view");
         return modelAndView;
     }
 
 
     @RequestMapping("/Vocabulary/test")
-    public ModelAndView vocabularyTasks(@RequestParam("level") String levelAtt) {
+    public ModelAndView vocabularyTasks(@RequestParam("level") String levelAtt, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
 
         Level level =
                 Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
@@ -83,15 +111,23 @@ public class GrammarVocabularyController {
                 currentQuestions.add(allQuestions.get(rand));
         }
         modelAndView.addObject("amountAtt", AMOUNT_OF_QUESTIONS);
-        modelAndView.addObject("typeAtt", "vocabulary");
+        modelAndView.addObject("typeAtt", "Vocabulary");
         modelAndView.setViewName("grammar-vocabulary-views\\\\test-start-view");
         return modelAndView;
     }
 
     @RequestMapping("/Grammar/test")
-    public ModelAndView grammarTask(@RequestParam("level") String levelAtt) {
+    public ModelAndView grammarTask(@RequestParam("level") String levelAtt, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Level level =
                 Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
         List<Question> allQuestions = questionService.getListOfQuestions(level, "Grammar", "simple", 0);
@@ -105,15 +141,27 @@ public class GrammarVocabularyController {
                 currentQuestions.add(allQuestions.get(rand));
         }
         modelAndView.addObject("amountAtt", AMOUNT_OF_QUESTIONS);
-        modelAndView.addObject("typeAtt", "grammar");
+        modelAndView.addObject("typeAtt", "Grammar");
         modelAndView.setViewName("grammar-vocabulary-views\\\\test-start-view");
         return modelAndView;
     }
 
     @RequestMapping("/test")
-    public ModelAndView test() {
+    public ModelAndView test(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+
+
         if (index < AMOUNT_OF_QUESTIONS) {
+            modelAndView.addObject("typeAtt", currentQuestions.get(index).getType());
             modelAndView.addObject("curQuestionAtt", currentQuestions.get(index));
             modelAndView.addObject("indexAtt", index);
             modelAndView.addObject("amountAtt", AMOUNT_OF_QUESTIONS);
@@ -121,9 +169,15 @@ public class GrammarVocabularyController {
 
         } else {
             index = 0;
+            modelAndView.addObject("typeAtt", currentQuestions.get(index).getType());
             currentQuestions.clear();
             modelAndView.addObject("totalPointsAtt", totalPoints);
             modelAndView.addObject("userPointsAtt", userPoints);
+            double result;
+            if((double)userPoints/totalPoints<0.3)result=1;
+            else if(userPoints/totalPoints>0.3) result=3;
+            else result=2;
+            modelAndView.addObject("resultAtt", result);
             modelAndView.setViewName("grammar-vocabulary-views\\\\test-final-view");
         }
 
@@ -133,6 +187,17 @@ public class GrammarVocabularyController {
     @RequestMapping("/receive")
     public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+        modelAndView.addObject("typeAtt", currentQuestions.get(index).getType());
+
         Question theQuestion = currentQuestions.get(index);
         totalPoints += pointCounter.getPoints(theQuestion);
         if (choice == theQuestion.getCorrectAnswer()) {
@@ -146,8 +211,5 @@ public class GrammarVocabularyController {
         index++;
         modelAndView.setViewName("grammar-vocabulary-views\\\\show-correct-result");
         return modelAndView;
-
     }
-
-
 }

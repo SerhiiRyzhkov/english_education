@@ -16,7 +16,7 @@ ${userPointsAtt}/${totalPointsAtt}
 <a href="/homeReff">To home page</a>
 <br>
 <br>
-<a href="/listening/">To listening page</a>
+<a href="/reading/">To reading page</a>
 
 </body>
 </html>

@@ -75,7 +75,7 @@ c-4,0-7.2-3.2-7.2-7.2V35.2C20,31.1,23.2,28,27.2,28 M56,52.9l28.8-17.8H27.2L56,52
 
                 <c:choose>
                     <c:when test="${resultAtt == 1}">
-                <h4 class="u-align-center u-text u-text-3"> Thank you for completing your English Test! While your score of 10 out of 35 points may not be what you had hoped for, it's important to remember that language learning takes time and effort. Don't be discouraged, keep practicing and working on your language skills, and you will see progress in no time. We are here to support you on your language learning journey and offer resources to help you improve. Remember, every attempt is an opportunity to learn and grow. Keep up the good work, and don't give up!
+                <h4 class="u-align-center u-text u-text-3"> Thank you for completing your English Test! While your score of ${userPointsAtt} out of ${totalPointsAtt} points may not be what you had hoped for, it's important to remember that language learning takes time and effort. Don't be discouraged, keep practicing and working on your language skills, and you will see progress in no time. We are here to support you on your language learning journey and offer resources to help you improve. Remember, every attempt is an opportunity to learn and grow. Keep up the good work, and don't give up!
 
                 </c:when>
                     <c:when test="${resultAtt == 2}">
@@ -99,22 +99,20 @@ c-4,0-7.2-3.2-7.2-7.2V35.2C20,31.1,23.2,28,27.2,28 M56,52.9l28.8-17.8H27.2L56,52
 
             </div>
         </div>
-        <a href="/listeningReff">
         <div class="u-container-style u-group u-radius-42 u-shape-round u-white u-group-2">
-            <div class="u-container-layout u-container-layout-2">
+            <a href="/listeningReff"><div class="u-container-layout u-container-layout-2" style="left: 75%;">
                 <h5 class="u-align-center u-text u-text-default u-text-palette-1-base u-text-4">Listening</h5>
-            </div>
+            </div> </a>
         </div>
-        </a>
 
-        <a href="/homeReff">
+
+
         <div class="u-container-style u-group u-radius-42 u-shape-round u-white u-group-3">
-            <div class="u-container-layout u-valign-middle u-container-layout-3">
+            <a href="/homeReff"><div class="u-container-layout u-valign-middle u-container-layout-3" style="left: 45%;">
                 <h5 class="u-text u-text-default u-text-palette-1-base u-text-5">To home page<span style="font-size: 1.875rem;"></span>
                 </h5>
-            </div>
+            </div>  </a>
         </div>
-        </a>
 
     </div>
 </section>

@@ -78,7 +78,7 @@ c-4,0-7.2-3.2-7.2-7.2V35.2C20,31.1,23.2,28,27.2,28 M56,52.9l28.8-17.8H27.2L56,52
     </div>
 
     <audio controls>
-      <source src="/resources/audio/listening/a1/20/20.mp3">
+      <source src="/resources/audio/listening/${curTaskAtt.level.toLowerCase()}/${curTaskAtt.name}/${curTaskAtt.name}.mp3">
 
       Your browser does not support the audio element.
     </audio>

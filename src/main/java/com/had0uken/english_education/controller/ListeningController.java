@@ -154,13 +154,12 @@ public class ListeningController {
         modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.addObject("totalPointsAtt", totalPoints);
         modelAndView.addObject("userPointsAtt", userPoints);
-        int result;
-        if(userPoints/totalPoints<0.3)result=1;
+        double result;
+        if((double)userPoints/totalPoints<0.3)result=1;
         else if(userPoints/totalPoints>0.3) result=3;
         else result=2;
         modelAndView.addObject("resultAtt", result);
         modelAndView.addObject("tasksAtt", ListeningTasks);
-        result=0;
         index = 0;
         totalPoints = 0;
         userPoints = 0;

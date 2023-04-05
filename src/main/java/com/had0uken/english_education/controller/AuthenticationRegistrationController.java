@@ -38,21 +38,7 @@ public class AuthenticationRegistrationController {
     }
 
 
-    @RequestMapping("/homeReff")
-    public ModelAndView homePageRedirection() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/home");
-        return modelAndView;
 
-    }
-
-    @RequestMapping("listeningReff")
-    public ModelAndView listeningPageRedirection() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/listening/");
-        return modelAndView;
-
-    }
 
 
 
