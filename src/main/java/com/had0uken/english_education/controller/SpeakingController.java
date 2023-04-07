@@ -2,9 +2,13 @@ package com.had0uken.english_education.controller;
 
 import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
+import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.TaskService;
+import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,28 +29,57 @@ public class SpeakingController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/")
-    public ModelAndView showStartView() {
+    public ModelAndView showStartView(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.setViewName("speaking-views\\\\start-view");
         return modelAndView;
     }
 
     @RequestMapping("/allTasks")
-    public ModelAndView showVerbs() {
+    public ModelAndView showVerbs(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
+
         List<Task> taskList = taskService.findByParams("Speaking", "no_test");
-        System.out.println("Here!!!333");
-        System.out.println(taskList.size());
-        System.out.println(taskList);
+
         modelAndView.addObject("allTasks", taskList);
         modelAndView.setViewName("speaking-views\\\\all-tasks-view");
         return modelAndView;
     }
 
     @RequestMapping("/showTask")
-    public ModelAndView showTask(@RequestParam("taskId") Integer id) {
+    public ModelAndView showTask(@RequestParam("taskId") Integer id, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Task task = taskService.findById(id);
         List<Question> questions = questionService.getListOfQuestions(id);
 
@@ -58,13 +91,22 @@ public class SpeakingController {
     }
 
     @RequestMapping("/randomTaks")
-    public ModelAndView randomTaks() {
+    public ModelAndView randomTaks(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Random random = new Random();
         List<Task> taskList = taskService.findByParams("Speaking", "no_test");
         int id = random.nextInt(taskList.size());
         Task task = taskList.get(id);
-        List<Question> questions = questionService.getListOfQuestions(id);
+        List<Question> questions = questionService.getListOfQuestions(task.getId());
         modelAndView.addObject("taskAtt", task);
         modelAndView.addObject("questionsAtt", questions);
         modelAndView.setViewName("speaking-views\\\\show-task-view");
