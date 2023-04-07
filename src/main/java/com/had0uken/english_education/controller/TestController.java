@@ -3,6 +3,7 @@ package com.had0uken.english_education.controller;
 import com.had0uken.english_education.counters.LevelCounter;
 import com.had0uken.english_education.counters.PointCounter;
 import com.had0uken.english_education.entity.Question;
+import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.UserService;
@@ -50,7 +51,20 @@ public class TestController {
 
 
     @RequestMapping("/testStart")
-    public String showTestView() {
+    public String showTestView(Model model, Authentication authentication) {
+
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            model.addAttribute("userLevelAtt", level.getLevel());
+        }
+        else model.addAttribute("userLevelAtt","");
+        model.addAttribute("currentUserEntityAtt", user);
+        model.addAttribute("currentUserEmail", authentication.getName());
+
+
+
         List<Question> allQuestions = questionService.getListOfQuestions("simple");
 
         Random random = new Random();
@@ -66,6 +80,16 @@ public class TestController {
 
     @RequestMapping("/testing")
     public String goToTest(Model model, Authentication authentication) {
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            model.addAttribute("userLevelAtt", level.getLevel());
+        }
+        else model.addAttribute("userLevelAtt","");
+        model.addAttribute("currentUserEntityAtt", user);
+        model.addAttribute("currentUserEmail", authentication.getName());
+
 
         index++;
         if (index < AMOUNT_OF_QUESTIONS) {
