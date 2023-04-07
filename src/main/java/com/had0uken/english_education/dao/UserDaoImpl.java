@@ -17,13 +17,16 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private SessionFactory sessionFactory;
 
 
+
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
 
     @Override
     public void banUser(Serializable id) {
+
         User user = getSession().get(User.class, id);
+
         user.setEnabled(false);
         getSession().merge(user);
     }

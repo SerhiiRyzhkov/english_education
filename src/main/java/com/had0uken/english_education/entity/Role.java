@@ -74,4 +74,7 @@ public class Role implements Serializable {
                 ", roleName='" + roleName + '\'' +
                 '}';
     }
+
+
+
 }

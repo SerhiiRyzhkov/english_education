@@ -2,10 +2,12 @@ package com.had0uken.english_education.controller;
 
 
 import com.had0uken.english_education.entity.User;
+import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.UserService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -44,8 +46,17 @@ public class AuthenticationRegistrationController {
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminPage() {
+    public ModelAndView adminPage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         modelAndView.addObject("message", "This page is accessible for Admin role !");
         modelAndView.setViewName("auth_and_reg-views/admin");
         return modelAndView;
