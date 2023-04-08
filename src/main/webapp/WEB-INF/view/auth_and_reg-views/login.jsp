@@ -1,41 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Spring Security</title>
+    <meta charset="utf-8">
+    <title>English Education</title>
+    <link rel="stylesheet" href="<c:url value="/resources/style/login/style.css"/>" media="screen">
+
 </head>
 <body>
-<div>
-    <form action="login" method="post">
-        <fieldset>
-            <legend>Please Login</legend>
-            <c:if test="${param.error != null}">
-                <div>
-                    <p>Authentication Failed : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
-                </div>
-            </c:if>
-            <c:if test="${param.logout != null}">
-                <div>
-                    <p>You have been logged out successfully.</p>
-                </div>
-            </c:if>
-            <label for="email">Email</label> <input type="text"
-                                                          id="email" name="email" /> <br> <label for="password">Password</label>
-            <input type="password" id="password" name="password" /> <br>
-            <div>
-                <button type="submit">Log in</button>
-            </div>
-            <div>
+<div class="login-box">
+    <h2>Login</h2>
+    <c:if test="${param.error != null}">
 
-            </div>
-        </fieldset>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <h3>Authentication Failed : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</h3>
+
+    </c:if>
+    <c:if test="${param.logout != null}">
+
+            <h3>You have been logged out successfully.</h3>
+
+    </c:if>
+
+    <form action="login" method="post" name="log">
+        <div class="user-box">
+            <input type="text"
+                   name="email" id="email" required="">
+            <label>E-mail</label>
+        </div>
+        <div class="user-box">
+            <input type="password"
+                   id="password" name="password" required="">
+            <label>Password</label>
+        </div>
+        <a href="#"  onClick="document.forms['log'].submit();">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign In
+        </a>
+        <a href="registration" style="margin-left: 80px;">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign Up
+        </a>
     </form>
 </div>
-<a href="registration">
-    <button name="register">Sign up</button>
-</a>
 </body>
 </html>

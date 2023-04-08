@@ -515,16 +515,6 @@
                                     <p class="u-align-left u-custom-font u-font-roboto-slab u-text u-text-26"> ${wordsAtt.definition}</p>
                                 </div>
                             </div>
-                            <%--  <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-7107" role="tabpanel" aria-labelledby="link-tab-7107">
-                                  <div class="u-container-layout u-container-layout-27">
-                                      <p class="u-align-center u-text u-text-black u-text-27">WORLD OF THE DAY!<span style="font-weight: 700;"></span>
-                                      </p>
-                                      <p class="u-text u-text-custom-color-1 u-text-28">
-                                          <span style="font-weight: 700;">Outbreak</span> (noun)
-                                      </p>
-                                      <p class="u-text u-text-29"> a sudden start or increase of fighting or disease</p>
-                                  </div>
-                              </div>--%>
                             <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-a54b" role="tabpanel" aria-labelledby="link-tab-a54b">
                                 <div class="u-container-layout u-container-layout-28">
                                     <p class="u-align-center u-text  u-text-default u-text-30" style="color: ${wordsAtt.color.toLowerCase()}">WORLD OF THE DAY!<span style="font-weight: 700;"></span>
@@ -532,8 +522,14 @@
                                     <div class="u-clearfix u-group-elements u-group-elements-5" data-animation-name="pulse" data-animation-duration="1000" data-animation-direction="">
                                         <p class="u-custom-font u-font-roboto-slab u-text u-text-31"> ${wordsAtt.example1}</p>
                                     </div>
-                                    <p class="u-custom-font u-font-roboto-slab u-text u-text-32"> ${wordsAtt.example2}</p>
-                                    <p class="u-custom-font u-font-roboto-slab u-text u-text-33"> ${wordsAtt.example3}</p>
+                                    <div class="u-clearfix u-group-elements u-group-elements-5" data-animation-name="pulse" data-animation-duration="1000" data-animation-direction="">
+                                        <p class="u-custom-font u-font-roboto-slab u-text u-text-31"> ${wordsAtt.example2}</p>
+                                    </div>
+                                    <div class="u-clearfix u-group-elements u-group-elements-5" data-animation-name="pulse" data-animation-duration="1000" data-animation-direction="">
+                                        <p class="u-custom-font u-font-roboto-slab u-text u-text-31"> ${wordsAtt.example3}</p>
+                                    </div>
+                                   <%-- <p class="u-custom-font u-font-roboto-slab u-text u-text-32"> ${wordsAtt.example2}</p>
+                                    <p class="u-custom-font u-font-roboto-slab u-text u-text-33"> ${wordsAtt.example3}</p>--%>
                                 </div>
                             </div>
                             <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-4" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
@@ -569,7 +565,7 @@
     <div class="u-clearfix u-sheet u-sheet-1"><span class="u-align-center u-icon u-icon-circle u-text-palette-2-base u-icon-1" data-animation-name="customAnimationIn" data-animation-duration="1750" data-animation-delay="750"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 409.294 409.294" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-ca89"></use></svg><svg class="u-svg-content" viewBox="0 0 409.294 409.294" id="svg-ca89"><path d="m233.882 29.235v175.412h116.941c0 64.48-52.461 116.941-116.941 116.941v58.471c96.728 0 175.412-78.684 175.412-175.412v-175.412z"></path><path d="m0 204.647h116.941c0 64.48-52.461 116.941-116.941 116.941v58.471c96.728 0 175.412-78.684 175.412-175.412v-175.412h-175.412z"></path></svg></span>
         <div class="u-align-center u-container-style u-group u-radius-20 u-shape-round u-white u-group-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="0">
             <div class="u-container-layout u-container-layout-1">
-                <h4 class="u-text u-text-palette-1-base u-text-1" data-lang-en="?Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."> The web application was developed as a learning project. The main goal of the project was the practice of Spring technology.</h4>
+                <h4 class="u-text u-text-palette-1-base u-text-1" data-lang-en="?Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."> The web application was developed as a learning project. The main goal of the project was the practice of Spring Framework.</h4>
             </div>
         </div>
         <div alt="" class="u-image u-image-circle u-image-1" data-image-width="1573" data-image-height="2244" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500"></div>

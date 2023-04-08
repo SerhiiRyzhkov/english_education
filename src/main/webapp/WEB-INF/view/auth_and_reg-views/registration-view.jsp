@@ -1,101 +1,74 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>English Education</title>
+    <link rel="stylesheet" href="<c:url value="/resources/style/login/style.css"/>" media="screen">
+
 </head>
 <body>
-${messageAtt}
-<form:form action="registration" modelAttribute="newUserAtt" method="post">
-<table>
-    <tr>
-        <td>Email</td>
-        <td><form:input path="email" /> <form:errors path="email"/></td>
-    </tr>
-    <tr>
-        <td>First name</td>
-        <td><form:input path="name"/> <form:errors path="name"/></td></td>
-    </tr>
-    <tr>
-        <td>Surname</td>
-        <td><form:input path="surname"/> <form:errors path="surname"/></td></td>
-    </tr>
-    <tr>
-        <td>Mobile</td>
-        <td><form:input path="mobile"/> <form:errors path="mobile" /></td></td>
-    </tr>
-    <tr>
-        <td>Password</td>
-        <td><input type="password" name="pass1Att" /></td>
-    </tr>
-    <tr>
-        <td>Confirm password</td>
-        <td><input type="password" name="pass2Att" /></td>
-    </tr>
-    <br>
-    <input type="submit"  value="ok">
-
+<div class="login-box">
+    <h2>Registration</h2>
+    <h3>${messageAtt}</h3>
+<form:form action="registration" name="reg" modelAttribute="newUserAtt" method="post">
+        <div class="user-box">
+            <form:input path="email" autocomplete="false"/> <form:errors path="email" cssStyle="font-size: 12px;
+    position: absolute;
+    color: red;
+    top: 63%;
+    right: 58%;" />
+            <label>E-mail</label>
+        </div>
+        <div class="user-box">
+            <form:input path="name" autocomplete="false"/> <form:errors path="name" cssStyle="ffont-size: 12px;
+    position: absolute;
+    color: red;
+    top: 63%;
+    right: 15%;" />
+            <label>First name</label>
+        </div>
+        <div class="user-box">
+            <form:input path="surname" autocomplete="false"/> <form:errors path="surname" cssStyle="font-size: 12px;
+    position: absolute;
+    color: red;
+    top: 63%;
+    right: 15%;" />
+            <label>Surname</label>
+        </div>
+        <div class="user-box">
+            <form:input path="mobile" autocomplete="false"/> <form:errors path="mobile"  cssStyle="font-size: 12px;
+    position: absolute;
+    color: red;
+    top: 63%;
+    right: 14%;" />
+            <label>Phone</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="pass1Att" />
+            <label>Password</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="pass2Att" />
+            <label>Confirm password</label>
+        </div>
+        <a href="#" style="margin-left: 30px;" onClick="document.forms['reg'].submit();">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign Up
+        </a>
+        <a href="/" style="margin-left: 60px;">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Back
+        </a>
 </form:form>
 
-<%--
-
-<table>
-    <tr>
-        <td>Email</td>
-        <td><input type="text" name="email" /></td>
-    </tr>
-    <tr>
-        <td>First Name</td>
-        <td><input type="text" name="firstName" /></td>
-    </tr>
-    <tr>
-        <td>Surname</td>
-        <td><input type="text" name="surname" /></td>
-    </tr>
-    <tr>
-        <td>Mobile</td>
-        <td><input type="text" name="mobile" /></td>
-    </tr>
-    <tr>
-        <td>Password</td>
-        <td><input type="password" name="password1" /></td>
-    </tr>
-    <tr>
-        <td>Confirm password</td>
-        <td><input type="password" name="password2" /></td>
-    </tr>
-</table>
-<input type="submit" value="Submit" />
-</form>
 </div>
 </body>
 </html>
-
---%>
-
-<%--
-registration view
-<br>
-<form:form action="registration"  modelAttribute="newUserAtt"  method="post">
-    Name <form:input path="name"/>
-    <br><br>
-    Surname <form:input path="surname"/>
-    <br><br>
-    Mobile <form:input path="mobile"/>
-    <br><br>
-    Email<form:input path="email"/>
-    <br><br>
-    Password <input type="text" name="pass1Att">
-    <br><br>
-    Confirm Password <input type="text" name="pass2Att">
-    &lt;%&ndash;
-    Password <form:input path="password"/>
-    <br><br>
-    Confirm password <c
-&ndash;%&gt;
-    <input type="submit" value="OK">
-
-</form:form>
-</body>
-</html>--%>
