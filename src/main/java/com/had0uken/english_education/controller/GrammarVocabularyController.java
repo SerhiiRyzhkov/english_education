@@ -1,9 +1,8 @@
 package com.had0uken.english_education.controller;
 
-import com.had0uken.english_education.counters.LevelCounter;
-import com.had0uken.english_education.counters.PointCounter;
+import com.had0uken.english_education.functional.LevelCounter;
+import com.had0uken.english_education.functional.PointCounter;
 import com.had0uken.english_education.entity.Question;
-import com.had0uken.english_education.entity.Task;
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.enums.Level;
 import com.had0uken.english_education.service.QuestionService;

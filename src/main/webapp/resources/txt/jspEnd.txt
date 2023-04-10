@@ -1,0 +1,50 @@
+
+          </pre>
+        </div>
+        <h3 class="u-align-center u-text u-text-default u-text-2" style="">${indexAtt+1}/${amountAtt}</h3>
+        <h3 class="u-align-center u-text u-text-default u-text-3">${curQuestionAtt.question}</h3>
+
+
+
+        <div>
+
+            <label class="rad-label">
+                <input type="radio" class="rad-input" value="1" name="choiceAtt" CHECKED>
+                <div class="rad-design"></div>
+                <div class="rad-text">${curQuestionAtt.answer1}</div>
+            </label>
+
+            <label class="rad-label">
+                <input type="radio" class="rad-input" value="2" name="choiceAtt">
+                <div class="rad-design"></div>
+                <div class="rad-text">${curQuestionAtt.answer2}</div>
+            </label>
+
+            <label class="rad-label">
+                <input type="radio" class="rad-input" value="3" name="choiceAtt">
+                <div class="rad-design"></div>
+                <div class="rad-text">${curQuestionAtt.answer3}</div>
+            </label>
+
+
+
+        </div>
+
+        <button type="submit" name="submit_button" style="border: none; background: none; width: 7%; height: 7%; cursor: pointer;">
+            <img src="<c:url value="/resources/style/listening-task-view/5590507.png"/>">
+        </button>
+
+        </form:form>
+
+    </div>
+</section>
+
+
+
+
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-9c10"><div class="u-clearfix u-sheet u-sheet-1">
+    <p class="u-small-text u-text u-text-variant u-text-1" data-lang-en="English Education by Serhii Ryzhkov 2023">English Education by Serhii Ryzhkov 2023</p>
+</div></footer>
+
+
+</body></html>

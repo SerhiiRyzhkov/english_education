@@ -77,9 +77,9 @@ c-4,0-7.2-3.2-7.2-7.2V35.2C20,31.1,23.2,28,27.2,28 M56,52.9l28.8-17.8H27.2L56,52
     <div class="forms" style="text-align: left;
     left: 10%;
     color: black;" >
-        <form method="POST" action="/admin/uploadReading" enctype="multipart/form-data">
+        <form method="POST" action="/admin/uploadReading">
             <br>
-            Type the question:
+            Title:
             <input type="text" name="nameAtt">
 
             <br>
@@ -104,12 +104,13 @@ c-4,0-7.2-3.2-7.2-7.2V35.2C20,31.1,23.2,28,27.2,28 M56,52.9l28.8-17.8H27.2L56,52
             <br>
             <input type="number" name="amountAtt" min="2" max="12">
             <br>
-            <input type="file" name="file" /><br/>
+            <br/>
 
 
             <input type="submit" value="Submit" />
 
         </form>
+    </div>
 </section>
 
 

@@ -1,8 +1,7 @@
 package com.had0uken.english_education.controller;
 
 
-import com.had0uken.english_education.counters.LevelCounter;
-import com.had0uken.english_education.counters.PointCounter;
+import com.had0uken.english_education.functional.PointCounter;
 import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
 import com.had0uken.english_education.entity.User;
@@ -89,15 +88,24 @@ public class ReadingController {
                 Arrays.stream(Level.values()).filter(e -> e.toString().equals(levelAtt)).findFirst().get();
         ReadingTasks = taskService.findByParams(level, "Reading", "reading");
         modelAndView.addObject("tasksAtt", ReadingTasks);
-
+        questions=null;
         modelAndView.setViewName("reading-views\\\\reading-practice-tests-this-level");
         return modelAndView;
     }
 
 
     @RequestMapping("/showTask")
-    public ModelAndView showTask(@RequestParam("taskId") int taskId) {
+    public ModelAndView showTask(@RequestParam("taskId") int taskId, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Task task = taskService.findById(taskId);
         currentTask = task;
         if (questions == null) questions = questionService.getListOfQuestions(taskId);
@@ -106,7 +114,8 @@ public class ReadingController {
             modelAndView.addObject("curQuestionAtt", questions.get(index));
             modelAndView.addObject("amountAtt", questions.size());
             modelAndView.addObject("indexAtt", index);
-            System.out.println("here!!11" + getTaskViewName(task));
+            modelAndView.addObject("curTaskAtt", task);
+
             modelAndView.setViewName(getTaskViewName(task));
         } else {
             modelAndView.setViewName("redirect:/reading/showResult");
@@ -118,7 +127,15 @@ public class ReadingController {
     @RequestMapping("/receive")
     public ModelAndView receive(@ModelAttribute("choiceAtt") Integer choice, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-
+        User user = userService.getUser(authentication.getName());
+        if(user.getLevel()!=null)
+        {
+            Level level = Level.valueOf(user.getLevel());
+            modelAndView.addObject("userLevelAtt", level.getLevel());
+        }
+        else modelAndView.addObject("userLevelAtt","");
+        modelAndView.addObject("currentUserEntityAtt", user);
+        modelAndView.addObject("currentUserEmail", authentication.getName());
         Question question = questions.get(index);
 
 

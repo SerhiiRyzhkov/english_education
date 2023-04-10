@@ -28,6 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @RequestMapping("/admin")
 @Controller
@@ -51,6 +52,20 @@ public class AdminController {
 
     private Task task;
 
+    private String snapShotPath;
+
+    private String separator;
+
+    public AdminController() throws URISyntaxException {
+        this.separator=File.separator;
+        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
+                .toURI()).getPath());
+        String p = pfile.toString();
+        p = p.substring(0, p.lastIndexOf("\\"));
+        p = p.substring(0, (p.lastIndexOf("\\") + 1));
+        this.snapShotPath=p;
+
+    }
 
     @RequestMapping("/adminRef")
     public ModelAndView adminPageRedirection() {
@@ -93,8 +108,7 @@ public class AdminController {
     }
 
     @PostMapping("/uploadReading")
-    public String uploadReading(@RequestParam("file") MultipartFile file,
-                                RedirectAttributes redirectAttributes,
+    public String uploadReading(
 
                                 @ModelAttribute("levelAtt") String level,
                                 @ModelAttribute("amountAtt") Integer amount,
@@ -111,60 +125,27 @@ public class AdminController {
         this.task = task;
         taskService.save(task);
 
-        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI()).getPath());
-        String p = pfile.toString();
-        p = p.substring(0, p.lastIndexOf("\\"));
-        p = p.substring(0, (p.lastIndexOf("\\") + 1));
+
         StringBuilder sb = new StringBuilder();
-        sb.append(p).append("resources\\img\\reading\\");
+        sb.append(snapShotPath).append("resources\\img\\reading\\");
         sb.append(level.toLowerCase()).append("\\").append(task.getName()).append("\\");
 
         Files.createDirectories(Paths.get(sb.toString()));
 
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            System.out.println("file is empty");
 
             array = new Question[amount];
-            createReading(reading, task.getId(), level, false);
+            createReading(reading, task.getId(), level);
             currentIndex = 0;
             return "redirect:/admin/addRLQuestions";
-        }
-
-        try {
 
 
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(sb + task.getName() + ".jpg");
-
-            Files.write(path, bytes);
-
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + task.getName() + ".jpg");
-
-
-            array = new Question[amount];
-
-            currentIndex = 0;
-            createReading(reading, task.getId(), level, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/admin/addRLQuestions";
     }
 
 
-    public void createReading(String text, Integer sourceId, String level, boolean picture) throws URISyntaxException, IOException {
-        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI()).getPath());
-        String p = pfile.toString();
-        p = p.substring(0, p.lastIndexOf("\\"));
-        p = p.substring(0, (p.lastIndexOf("\\") + 1));
+    public void createReading(String text, Integer sourceId, String level) throws URISyntaxException, IOException {
+
         StringBuilder sb = new StringBuilder();
-        sb.append(p).append("WEB-INF\\view\\reading-views\\");
+        sb.append(snapShotPath).append("WEB-INF\\view\\reading-views\\");
         sb.append(level.toLowerCase()).append("\\").append(
                 "reading.").append(level.toLowerCase()).append(".").append(sourceId).append("\\");
 
@@ -174,80 +155,24 @@ public class AdminController {
             if (file.createNewFile()) {
                 System.out.println("file was created!!!");
                 FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write("<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\" %>\n" +
-                        "<%@ taglib prefix=\"spring\" uri=\"http://www.springframework.org/tags\" %>\n" +
-                        "<%@ taglib prefix=\"form\" uri=\"http://www.springframework.org/tags/form\" %>\n" +
-                        "\n" +
-                        "<!DOCTYPE html>\n" +
-                        "\n" +
-                        "<html>\n" +
-                        "<head>\n" +
-                        "    <title>");
-                fileWriter.write(task.getTitle());
-                fileWriter.write("</title>\n" +
-                        "</head>\n" +
-                        "<body>\n" +
-                        "<h1>");
-                fileWriter.write(task.getLevel());
-                fileWriter.write(" Reading Test</h1>\n" +
-                        "<h2>");
-                fileWriter.write(task.getTitle());
-                fileWriter.write("</h2>\n" +
-                        "<br>");
-                if (picture) {
-                    fileWriter.write("<img src=\"<c:url value=\"/resources/img/reading/");
-                    fileWriter.write(level.toLowerCase());
-                    fileWriter.write("/reading-");
-                    fileWriter.write(level.toLowerCase());
-                    fileWriter.write("-");
-                    fileWriter.write(String.valueOf(task.getId()));
-                    fileWriter.write("/reading-");
-                    fileWriter.write(level.toLowerCase());
-                    fileWriter.write("-");
-                    fileWriter.write(String.valueOf(task.getId()));
-                    fileWriter.write(".jpg\" />\\\" alt=\"Picture\" />");
+                String jspBeginPath = snapShotPath + "\\resources\\txt\\jspBegin.txt";
+                String jspEndPath = snapShotPath + "\\resources\\txt\\jspEnd.txt";
+                Scanner scanner = new Scanner(new File(jspBeginPath));
+                StringBuilder jspWriter = new StringBuilder();
+                while (scanner.hasNextLine())
+                {
+                    jspWriter.append(scanner.nextLine());
                 }
-                fileWriter.write("<br>\n");
-                fileWriter.write(text);
-                fileWriter.write("<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "\n" +
-                        "\n" +
-                        "<h2>Task:</h2>\n" +
-                        "<br>\n" +
-                        "<br>\n" +
-                        "<form:form action=\"receive\" modelAttribute=\"tasksAtt\">\n" +
-                        "    Question ${indexAtt+1}/${amountAtt}\n" +
-                        "    <br>\n" +
-                        "    <br>\n" +
-                        "    <br>\n" +
-                        "    <br>\n" +
-                        "    ${curQuestionAtt.question}\n" +
-                        "    <br>\n" +
-                        "    <br>\n" +
-                        "    Choose the correct answer:\n" +
-                        "    <br>\n" +
-                        "    <input type=\"radio\" value=\"1\" name=\"choiceAtt\" checked> ${curQuestionAtt.answer1}\n" +
-                        "    <br>\n" +
-                        "    <input type=\"radio\" value=\"2\" name=\"choiceAtt\"> ${curQuestionAtt.answer2}\n" +
-                        "    <br>\n" +
-                        "    <input type=\"radio\" value=\"3\" name=\"choiceAtt\"> ${curQuestionAtt.answer3}\n" +
-                        "\n" +
-                        "\n" +
-                        "    <br>\n" +
-                        "    <br>\n" +
-                        "\n" +
-                        "    <input type=\"submit\" value=\"OK\" checked>\n" +
-                        "\n" +
-                        "</form:form>\n" +
-                        "\n" +
-                        "</body>\n");
+                jspWriter.append(text);
+
+                scanner =new Scanner(new File(jspEndPath));
+
+                while (scanner.hasNextLine())
+                {
+                    jspWriter.append(scanner.nextLine());
+                }
+
+                fileWriter.write(jspWriter.toString());
 
                 fileWriter.close();
             } else
@@ -262,12 +187,10 @@ public class AdminController {
     @PostMapping("/uploadListening")
     public String uploadListening(@RequestParam("file") MultipartFile file,
                                   RedirectAttributes redirectAttributes,
-
                                   @ModelAttribute("levelAtt") String level,
                                   @ModelAttribute("amountAtt") Integer amount,
                                   @ModelAttribute("nameAtt") String name
-    ) throws URISyntaxException, IOException {
-
+    ) throws IOException {
 
         Task task = new Task();
         task.setTitle(name);
@@ -279,18 +202,11 @@ public class AdminController {
         this.task = task;
         taskService.save(task);
 
-        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI()).getPath());
-        String p = pfile.toString();
-        p = p.substring(0, p.lastIndexOf("\\"));
-        p = p.substring(0, (p.lastIndexOf("\\") + 1));
         StringBuilder sb = new StringBuilder();
-        sb.append(p).append("resources\\audio\\listening\\");
+        sb.append(snapShotPath).append("resources\\audio\\listening\\");
         sb.append(level.toLowerCase()).append("\\").append(task.getName()).append("\\");
 
-
         Files.createDirectories(Paths.get(sb.toString()));
-
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -299,9 +215,6 @@ public class AdminController {
         }
 
         try {
-
-
-            // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             Path path = Paths.get(sb + task.getName() + ".mp3");
 
@@ -310,27 +223,22 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + task.getName() + ".mp3");
 
-
             array = new Question[amount];
 
             currentIndex = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "redirect:/admin/addRLQuestions";
     }
 
     @RequestMapping("/addRLQuestions")
     public ModelAndView addQuestions() {
         ModelAndView modelAndView = new ModelAndView();
-
         array[currentIndex] = new Question();
         modelAndView.addObject("questionAtt", array[currentIndex]);
         modelAndView.addObject("indexAtt", currentIndex);
         modelAndView.addObject("amountAtt", array.length);
-
-
         modelAndView.setViewName("admin-views/add-listening-reading-task-questions");
         return modelAndView;
     }
@@ -370,7 +278,6 @@ public class AdminController {
     @RequestMapping("/addSpeaking")
     public ModelAndView addSpeaking() {
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.setViewName("admin-views/add-speaking-view");
         return modelAndView;
     }
@@ -413,19 +320,11 @@ public class AdminController {
                                    @ModelAttribute("example1") String example1,
                                    @ModelAttribute("example2") String example2,
                                    @ModelAttribute("example3") String example3,
-                                   @ModelAttribute("part") String part) throws URISyntaxException {
+                                   @ModelAttribute("part") String part) {
         ModelAndView modelAndView = new ModelAndView();
         Word wordObj = new Word(word, part, definition, example1, example2, example3);
-        File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI()).getPath());
-        String p = pfile.toString();
-        p = p.substring(0, p.lastIndexOf("\\"));
-        p = p.substring(0, (p.lastIndexOf("\\") + 1));
         StringBuilder sb = new StringBuilder();
-        //src/main/webapp/resources/img/words
-        sb.append(p).append("resources\\img\\words\\");
-
-
+        sb.append(snapShotPath).append("resources\\img\\words\\");
         modelAndView.setViewName("admin-views/add-word-view");
 
 
@@ -433,13 +332,10 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             System.out.println("file is empty");
 
-
         }
 
         try {
 
-
-            // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             Path path = Paths.get(sb + wordObj.getWord().toLowerCase() + ".png");
 
@@ -448,11 +344,9 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + wordObj.getWord() + ".png");
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return modelAndView;
     }
 
@@ -478,7 +372,6 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         userService.banUser(username);
         model.setViewName("redirect:/admin/listOfUsers");
-
         return model;
     }
 
@@ -487,7 +380,6 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         userService.unBanUser(username);
         model.setViewName("redirect:/admin/listOfUsers");
-
         return model;
     }
 

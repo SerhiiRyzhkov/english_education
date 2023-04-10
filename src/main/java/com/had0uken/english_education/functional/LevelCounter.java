@@ -1,4 +1,4 @@
-package com.had0uken.english_education.counters;
+package com.had0uken.english_education.functional;
 
 import com.had0uken.english_education.enums.Level;
 
