@@ -2,8 +2,6 @@ package com.had0uken.english_education.validation.user;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CheckUserEmailValidator implements ConstraintValidator<CheckUserEmail, String> {
 

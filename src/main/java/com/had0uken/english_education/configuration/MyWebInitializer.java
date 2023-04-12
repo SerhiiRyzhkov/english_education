@@ -1,10 +1,6 @@
 package com.had0uken.english_education.configuration;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.support.GenericWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;

@@ -2,10 +2,8 @@ package com.had0uken.english_education.controller;
 
 
 import com.had0uken.english_education.entity.Irregular;
-import com.had0uken.english_education.entity.User;
-import com.had0uken.english_education.enums.Level;
+import com.had0uken.english_education.functional.HeaderCreator;
 import com.had0uken.english_education.service.IrregularService;
-import com.had0uken.english_education.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.util.*;
 
 @EnableTransactionManagement
@@ -22,67 +21,46 @@ import java.util.*;
 public class IrregularController {
 
     @Autowired
-    private UserService userService;
+    private HeaderCreator headerCreator;
 
     private final int AMOUNT_OF_VERBS = 3;
 
     private List<Irregular> verbs;
     private List<Irregular> answers;
 
+    private final String separator;
+
+
+
+
     @Autowired
     public IrregularController(IrregularService irregularService) {
         this.verbs = irregularService.getAllIrregulars();
         this.answers = new ArrayList<>();
+        this.separator= File.separator;
 
     }
 
     @RequestMapping("/")
     public ModelAndView showStartView(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUser(authentication.getName());
-        if(user.getLevel()!=null)
-        {
-            Level level = Level.valueOf(user.getLevel());
-            modelAndView.addObject("userLevelAtt", level.getLevel());
-        }
-        else modelAndView.addObject("userLevelAtt","");
-        modelAndView.addObject("currentUserEntityAtt", user);
-        modelAndView.addObject("currentUserEmail", authentication.getName());
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
 
 
-        modelAndView.setViewName("irregular-views\\\\start-view");
+        modelAndView.setViewName("irregular-views" + separator + "start-view");
         return modelAndView;
     }
 
     @RequestMapping("/showVerbs")
     public ModelAndView showVerbs(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUser(authentication.getName());
-        if(user.getLevel()!=null)
-        {
-            Level level = Level.valueOf(user.getLevel());
-            modelAndView.addObject("userLevelAtt", level.getLevel());
-        }
-        else modelAndView.addObject("userLevelAtt","");
-        modelAndView.addObject("currentUserEntityAtt", user);
-        modelAndView.addObject("currentUserEmail", authentication.getName());
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         modelAndView.addObject("allVerbsAtt", verbs);
-        modelAndView.setViewName("irregular-views\\\\show-verbs-view");
+        modelAndView.setViewName("irregular-views" + separator + "show-verbs-view");
         return modelAndView;
     }
 
     @RequestMapping("/practiseVerbs")
     public ModelAndView practice(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUser(authentication.getName());
-        if(user.getLevel()!=null)
-        {
-            Level level = Level.valueOf(user.getLevel());
-            modelAndView.addObject("userLevelAtt", level.getLevel());
-        }
-        else modelAndView.addObject("userLevelAtt","");
-        modelAndView.addObject("currentUserEntityAtt", user);
-        modelAndView.addObject("currentUserEmail", authentication.getName());
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         answers.clear();
         Random random = new Random();
         Set<Integer> set = new HashSet<>();
@@ -92,7 +70,7 @@ public class IrregularController {
         modelAndView.addObject("verbsAtt", answers);
 
 
-        modelAndView.setViewName("irregular-views\\\\practice-view");
+        modelAndView.setViewName("irregular-views" + separator + "practice-view");
         return modelAndView;
     }
 
@@ -103,21 +81,10 @@ public class IrregularController {
 
 
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUser(authentication.getName());
-        if(user.getLevel()!=null)
-        {
-            Level level = Level.valueOf(user.getLevel());
-            modelAndView.addObject("userLevelAtt", level.getLevel());
-        }
-        else modelAndView.addObject("userLevelAtt","");
-        modelAndView.addObject("currentUserEntityAtt", user);
-        modelAndView.addObject("currentUserEmail", authentication.getName());
-
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
 
         Map<Irregular, Boolean> map = new LinkedHashMap<>();
         for (int i = 0; i < answers.size(); i++) {
-
             Irregular irregular = answers.get(i);
 
             if (
@@ -127,10 +94,8 @@ public class IrregularController {
                 map.put(irregular, true);
             else map.put(irregular, false);
         }
-
-
         modelAndView.addObject("verbsAtt", map);
-        modelAndView.setViewName("irregular-views\\\\check-view");
+        modelAndView.setViewName("irregular-views" + separator + "check-view");
         return modelAndView;
 
     }
@@ -138,8 +103,7 @@ public class IrregularController {
     @RequestMapping("/next")
     public ModelAndView next() {
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("redirect:/irregular/practiseVerbs");
+        modelAndView.setViewName("redirect:" + separator + "irregular" + separator + "practiseVerbs");
         return modelAndView;
     }
 

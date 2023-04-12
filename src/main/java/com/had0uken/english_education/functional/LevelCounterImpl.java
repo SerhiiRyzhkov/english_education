@@ -3,7 +3,6 @@ package com.had0uken.english_education.functional;
 import com.had0uken.english_education.enums.Level;
 import org.springframework.stereotype.Component;
 
-//Definition of English level by result of test
 @Component
 public class LevelCounterImpl implements LevelCounter {
 

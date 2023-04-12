@@ -3,14 +3,30 @@ package com.had0uken.english_education.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.File;
+
 @Controller
 public class RedirectController {
+
+    private final String separator;
+
+    public RedirectController() {
+        this.separator= File.separator;
+    }
+
+    @RequestMapping("/adminRef")
+    public ModelAndView adminPageRedirection() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("redirect:"+separator+ "admin");
+        return model;
+    }
 
 
     @RequestMapping("/homeReff")
     public ModelAndView homePageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/home");
+        modelAndView.setViewName("redirect:"+separator+ "home");
         return modelAndView;
 
     }
@@ -18,7 +34,7 @@ public class RedirectController {
     @RequestMapping("/listeningReff")
     public ModelAndView listeningPageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/listening/");
+        modelAndView.setViewName("redirect:"+separator+ "listening/");
         return modelAndView;
 
     }
@@ -26,7 +42,7 @@ public class RedirectController {
     @RequestMapping("/readingReff")
     public ModelAndView readingPageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/reading/");
+        modelAndView.setViewName("redirect:"+separator+ "reading/");
         return modelAndView;
 
     }
@@ -35,7 +51,7 @@ public class RedirectController {
     @RequestMapping("/grammarReff")
     public ModelAndView grammarPageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/GV/Grammar");
+        modelAndView.setViewName("redirect:" + separator + "GV" + separator + "Grammar");
         return modelAndView;
 
     }
@@ -45,7 +61,7 @@ public class RedirectController {
     @RequestMapping("/vocabularyReff")
     public ModelAndView vocabularyPageRedirection() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect: /GV/Vocabulary");
+        modelAndView.setViewName("redirect:" + separator + "GV" + separator + "Vocabulary");
         return modelAndView;
 
     }

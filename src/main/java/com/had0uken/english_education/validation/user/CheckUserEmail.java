@@ -1,6 +1,5 @@
 package com.had0uken.english_education.validation.user;
 
-import com.had0uken.english_education.validation.question.CheckQuestionLevelValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -5,12 +5,14 @@ import com.had0uken.english_education.entity.Question;
 import com.had0uken.english_education.entity.Task;
 import com.had0uken.english_education.entity.User;
 import com.had0uken.english_education.entity.Word;
+import com.had0uken.english_education.functional.HeaderCreator;
 import com.had0uken.english_education.service.QuestionService;
 import com.had0uken.english_education.service.TaskService;
 import com.had0uken.english_education.service.UserService;
 
 import com.had0uken.english_education.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.BindingResult;
@@ -35,75 +37,67 @@ import java.util.Scanner;
 @EnableTransactionManagement
 
 public class AdminController {
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private QuestionService questionService;
     @Autowired
     private WordService wordService;
-
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private HeaderCreator headerCreator;
 
     private Question[] array = null;
     private int currentIndex = 0;
 
     private Task task;
 
-    private String snapShotPath;
-
-    private String separator;
+    private final String separator;
+    private final String snapShotPath;
 
     public AdminController() throws URISyntaxException {
         this.separator=File.separator;
         File pfile = new File(new File(AuthenticationRegistrationController.class.getProtectionDomain().getCodeSource().getLocation()
                 .toURI()).getPath());
         String p = pfile.toString();
-        p = p.substring(0, p.lastIndexOf("\\"));
-        p = p.substring(0, (p.lastIndexOf("\\") + 1));
+        p = p.substring(0, p.lastIndexOf(separator));
+        p = p.substring(0, (p.lastIndexOf(separator) + 1));
         this.snapShotPath=p;
-
     }
 
-    @RequestMapping("/adminRef")
-    public ModelAndView adminPageRedirection() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("redirect:/admin");
-        return model;
-    }
+
 
     @RequestMapping(value = "/listOfUsers")
-    public ModelAndView listOfUsers() {
-        ModelAndView model = new ModelAndView();
+    public ModelAndView listOfUsers(Authentication authentication) {
+        ModelAndView model = headerCreator.getModelWithHeader(authentication);
         List<User> allUsers = userService.getAllUser();
         model.addObject("allUsersAtt", allUsers);
-        model.setViewName("admin-views/listOfUsers");
+        model.setViewName("admin-views" + separator + "listOfUsers");
 
         return model;
     }
 
     @RequestMapping("/addNewQuestions")
-    public ModelAndView addNewQuestions() {
-        ModelAndView model = new ModelAndView();
+    public ModelAndView addNewQuestions(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         Question question = new Question();
-        model.addObject("questionAtt", question);
-        model.setViewName("admin-views/add-questions-view");
-        return model;
+        modelAndView.addObject("questionAtt", question);
+        modelAndView.setViewName("admin-views" + separator + "add-questions-view");
+        return modelAndView;
     }
 
     @RequestMapping("/addNewListening")
-    public ModelAndView addNewListening() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin-views/add-listening-task");
+    public ModelAndView addNewListening(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
+        modelAndView.setViewName("admin-views" + separator + "add-listening-task");
         return modelAndView;
     }
 
     @RequestMapping("/addNewReading")
-    public ModelAndView addNewReading() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin-views/add-reading-task");
+    public ModelAndView addNewReading(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
+        modelAndView.setViewName("admin-views" + separator + "add-reading-task");
         return modelAndView;
     }
 
@@ -114,7 +108,7 @@ public class AdminController {
                                 @ModelAttribute("amountAtt") Integer amount,
                                 @ModelAttribute("nameAtt") String name,
                                 @ModelAttribute("readingAtt") String reading
-    ) throws URISyntaxException, IOException {
+    ) throws IOException {
         Task task = new Task();
         task.setTitle(name);
         task.setLevel(level);
@@ -125,29 +119,23 @@ public class AdminController {
         this.task = task;
         taskService.save(task);
 
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(snapShotPath).append("resources\\img\\reading\\");
-        sb.append(level.toLowerCase()).append("\\").append(task.getName()).append("\\");
-
-        Files.createDirectories(Paths.get(sb.toString()));
-
-
             array = new Question[amount];
             createReading(reading, task.getId(), level);
             currentIndex = 0;
-            return "redirect:/admin/addRLQuestions";
+
+
+            return "redirect:" + separator + "admin" + separator + "addRLQuestions";
 
 
     }
 
 
-    public void createReading(String text, Integer sourceId, String level) throws URISyntaxException, IOException {
-
+    public void createReading(String text, Integer sourceId, String level) throws IOException {
         StringBuilder sb = new StringBuilder();
-        sb.append(snapShotPath).append("WEB-INF\\view\\reading-views\\");
-        sb.append(level.toLowerCase()).append("\\").append(
-                "reading.").append(level.toLowerCase()).append(".").append(sourceId).append("\\");
+        sb.append(snapShotPath).append("WEB-INF").append(separator).append("view")
+                .append(separator).append("reading-views").append(separator);
+        sb.append(level.toLowerCase()).append(separator).append(
+                "reading.").append(level.toLowerCase()).append(".").append(sourceId).append(separator);
 
         Files.createDirectories(Paths.get(sb.toString()));
         try {
@@ -155,8 +143,8 @@ public class AdminController {
             if (file.createNewFile()) {
                 System.out.println("file was created!!!");
                 FileWriter fileWriter = new FileWriter(file);
-                String jspBeginPath = snapShotPath + "\\resources\\txt\\jspBegin.txt";
-                String jspEndPath = snapShotPath + "\\resources\\txt\\jspEnd.txt";
+                String jspBeginPath = snapShotPath + separator + "resources"+separator+ "txt" + separator+"jspBegin.txt";
+                String jspEndPath = snapShotPath + separator + "resources"+separator+ "txt" + separator+"jspEnd.txt";
                 Scanner scanner = new Scanner(new File(jspBeginPath));
                 StringBuilder jspWriter = new StringBuilder();
                 while (scanner.hasNextLine())
@@ -181,7 +169,6 @@ public class AdminController {
             System.out.println("An error: ");
             exc.printStackTrace();
         }
-
     }
 
     @PostMapping("/uploadListening")
@@ -203,17 +190,17 @@ public class AdminController {
         taskService.save(task);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(snapShotPath).append("resources\\audio\\listening\\");
-        sb.append(level.toLowerCase()).append("\\").append(task.getName()).append("\\");
+        sb.append(snapShotPath).append("resources").append(separator).append("audio")
+                        .append(separator).append("listening").append(separator);
+        sb.append(level.toLowerCase()).append(separator).append(task.getName()).append(separator);
 
         Files.createDirectories(Paths.get(sb.toString()));
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             System.out.println("file is empty");
-            return "admin-views/add-listening-task";
+            return "admin-views" + separator + "add-listening-task";
         }
-
         try {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(sb + task.getName() + ".mp3");
@@ -222,32 +209,31 @@ public class AdminController {
 
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + task.getName() + ".mp3");
-
             array = new Question[amount];
-
             currentIndex = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/addRLQuestions";
+        return "redirect:" + separator + "admin" + separator + "addRLQuestions";
     }
 
     @RequestMapping("/addRLQuestions")
-    public ModelAndView addQuestions() {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView addQuestions(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         array[currentIndex] = new Question();
         modelAndView.addObject("questionAtt", array[currentIndex]);
         modelAndView.addObject("indexAtt", currentIndex);
         modelAndView.addObject("amountAtt", array.length);
-        modelAndView.setViewName("admin-views/add-listening-reading-task-questions");
+        modelAndView.setViewName("admin-views" + separator + "add-listening-reading-task-questions");
         return modelAndView;
     }
 
 
     @RequestMapping("/saveLRQuestions")
     public ModelAndView saveLquestions(@ModelAttribute("questionAtt") Question question,
-                                       @ModelAttribute("choiceAtt") Integer choice) {
-        ModelAndView modelAndView = new ModelAndView();
+                                       @ModelAttribute("choiceAtt") Integer choice,
+                                       Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         array[currentIndex] = question;
         array[currentIndex].setCorrectAnswer(choice);
         array[currentIndex].setLevel(task.getLevel());
@@ -256,29 +242,29 @@ public class AdminController {
         array[currentIndex].setSourceId(task.getId());
         questionService.save(array[currentIndex++]);
         if (currentIndex == array.length) {
-            modelAndView.setViewName("admin-views/task-added-view");
+            modelAndView.setViewName("admin-views" + separator + "task-added-view");
             currentIndex = 0;
             this.task = null;
         } else
-            modelAndView.setViewName("redirect:/admin/addRLQuestions");
+            modelAndView.setViewName("redirect:" + separator + "admin" + separator + "addRLQuestions");
         return modelAndView;
     }
 
 
     @RequestMapping("/addWord")
-    public ModelAndView addNewWord() {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView addNewWord(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         Word word = new Word();
         modelAndView.addObject("wordAtt", word);
-        modelAndView.setViewName("admin-views/add-word-view");
+        modelAndView.setViewName("admin-views" + separator + "add-word-view");
         return modelAndView;
     }
 
 
     @RequestMapping("/addSpeaking")
-    public ModelAndView addSpeaking() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin-views/add-speaking-view");
+    public ModelAndView addSpeaking(Authentication authentication) {
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
+        modelAndView.setViewName("admin-views" + separator + "add-speaking-view");
         return modelAndView;
     }
 
@@ -289,9 +275,10 @@ public class AdminController {
                                      @ModelAttribute("question4") String question4,
                                      @ModelAttribute("question5") String question5,
                                      @ModelAttribute("question6") String question6,
-                                     @ModelAttribute("Topic") String Topic
+                                     @ModelAttribute("Topic") String Topic,
+                                     Authentication authentication
     ) {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = headerCreator.getModelWithHeader(authentication);
         List<String> list = new ArrayList<>();
         if (!question1.isEmpty()) list.add(question1);
         if (!question2.isEmpty()) list.add(question2);
@@ -307,14 +294,13 @@ public class AdminController {
             Question question = new Question(s, "none", "none", "none", 1, "A1", "Speaking", "no_test", task1.getId());
             questionService.save(question);
         }
-        modelAndView.setViewName("admin-views/add-speaking-view");
+        modelAndView.setViewName("admin-views" + separator + "add-speaking-view");
         return modelAndView;
     }
 
     @RequestMapping("/uploadWord")
     public ModelAndView uploadWord(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes,
-
                                    @ModelAttribute("word") String word,
                                    @ModelAttribute("definition") String definition,
                                    @ModelAttribute("example1") String example1,
@@ -324,9 +310,9 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         Word wordObj = new Word(word, part, definition, example1, example2, example3);
         StringBuilder sb = new StringBuilder();
-        sb.append(snapShotPath).append("resources\\img\\words\\");
-        modelAndView.setViewName("admin-views/add-word-view");
-
+        sb.append(snapShotPath).append("resources")
+                .append(separator).append("img").append(separator).append("words").append(separator);
+        modelAndView.setViewName("admin-views" + separator + "add-word-view");
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -354,10 +340,11 @@ public class AdminController {
     @RequestMapping("/saveQuestion")
     public ModelAndView saveNewQuestion(@Valid @ModelAttribute("questionAtt") Question question,
                                         @ModelAttribute("choiceAtt") Integer choice,
-                                        BindingResult bindingResult) {
-        ModelAndView model = new ModelAndView();
+                                        BindingResult bindingResult,
+                                        Authentication authentication) {
+        ModelAndView model = headerCreator.getModelWithHeader(authentication);
         if (bindingResult.hasErrors()) {
-            model.setViewName("admin-views/add-questions-view");
+            model.setViewName("admin-views" + separator + "add-questions-view");
         } else {
             question.setCorrectAnswer(choice);
             questionService.save(question);
@@ -368,18 +355,20 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/banUser")
-    public ModelAndView banUser(@RequestParam("userId") String username) {
-        ModelAndView model = new ModelAndView();
+    public ModelAndView banUser(@RequestParam("userId") String username,
+                                Authentication authentication) {
+        ModelAndView model = headerCreator.getModelWithHeader(authentication);
         userService.banUser(username);
-        model.setViewName("redirect:/admin/listOfUsers");
+        model.setViewName("redirect:" + separator + "admin" + separator + "listOfUsers");
         return model;
     }
 
     @RequestMapping(value = "/unBanUser")
-    public ModelAndView unBanUser(@RequestParam("userId") String username) {
-        ModelAndView model = new ModelAndView();
+    public ModelAndView unBanUser(@RequestParam("userId") String username,
+                                  Authentication authentication) {
+        ModelAndView model = headerCreator.getModelWithHeader(authentication);
         userService.unBanUser(username);
-        model.setViewName("redirect:/admin/listOfUsers");
+        model.setViewName("redirect:" + separator + "admin" + separator + "listOfUsers");
         return model;
     }
 

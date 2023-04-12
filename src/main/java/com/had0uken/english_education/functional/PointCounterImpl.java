@@ -4,7 +4,6 @@ import com.had0uken.english_education.entity.Question;
 import org.springframework.stereotype.Component;
 
 
-//logic of counting points according to their level
 @Component
 public class PointCounterImpl implements PointCounter {
 

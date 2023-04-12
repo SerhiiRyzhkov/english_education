@@ -7,14 +7,12 @@ import com.had0uken.english_education.validation.user.CheckUserMobile;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -51,7 +49,7 @@ public class User implements Serializable {
     private int points;
 
 
-    @ManyToMany(/*cascade = CascadeType.ALL,*/ fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "authorities", joinColumns = {
             @JoinColumn(name = "email", nullable = false, updatable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false)})

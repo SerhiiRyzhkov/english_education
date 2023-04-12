@@ -3,7 +3,6 @@ package com.had0uken.english_education.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 

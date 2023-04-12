@@ -26,12 +26,13 @@
     <form action="login" method="post" name="log">
         <div class="user-box">
             <input type="text"
-                   name="email" id="email" required="">
+                   name="email" id="email" readonly
+                   onfocus="this.removeAttribute('readonly')">
             <label>E-mail</label>
         </div>
         <div class="user-box">
             <input type="password"
-                   id="password" name="password" required="">
+                   id="password" name="password" >
             <label>Password</label>
         </div>
         <a href="#"  onClick="document.forms['log'].submit();">
@@ -49,6 +50,19 @@
             Sign Up
         </a>
     </form>
+    <style>
+        .user-box input {
+            border: 1px solid black;
+            background-color: transparent;
+        }
+
+        .user-box input:-webkit-autofill,
+        .user-box input:-webkit-autofill:hover,
+        .user-box input:-webkit-autofill:focus,
+        .user-box input:-webkit-autofill:active {
+            -webkit-transition-delay: 99999s;
+        }
+    </style>
 </div>
 </body>
 </html>
