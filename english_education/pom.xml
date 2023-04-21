@@ -231,8 +231,8 @@
             </container>
             <configuration>
               <properties>
-                <cargo.servlet.port>8084</cargo.servlet.port>
-                <cargo.tomcat.manager.url>${tomcat.url}</cargo.tomcat.manager.url>
+                <cargo.servlet.port>8080</cargo.servlet.port>
+                <cargo.tomcat.manager.url>http://localhost:8080</cargo.tomcat.manager.url>
               </properties>
             </configuration>
             <deployables>

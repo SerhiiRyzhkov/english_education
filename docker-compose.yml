@@ -21,7 +21,7 @@ services:
       context: ./english_education
       dockerfile: Dockerfile
     ports:
-      - "8084:8084"
+      - "2244:8080"
     depends_on:
       - mysql
  
