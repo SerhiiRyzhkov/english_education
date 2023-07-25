@@ -77,6 +77,11 @@ public class MyConfig implements WebMvcConfigurer {
             dataSource.setJdbcUrl(jdbcUrl);
             dataSource.setUser(user);
             dataSource.setPassword(password);
+            dataSource.setMaxPoolSize(10);
+            dataSource.setIdleConnectionTestPeriod(30000);
+            dataSource.setMaxIdleTime(1800);
+            dataSource.setPreferredTestQuery("SELECT 1");
+
             return dataSource;
         } catch (PropertyVetoException e) {
             throw new RuntimeException(e);

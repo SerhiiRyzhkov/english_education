@@ -1,0 +1,42 @@
+events {
+    # Default event loop configuration (can be left as is)
+}
+
+
+http {
+    # Existing configurations...
+
+    server {
+        server_name ryzhkov.website;
+
+        location / {
+            proxy_pass http://localhost:2244;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/ryzhkov.website/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/ryzhkov.website/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+    # More existing configurations...
+
+
+    server {
+    if ($host = ryzhkov.website) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80;
+        server_name ryzhkov.website;
+    return 404; # managed by Certbot
+
+
+}}
+

@@ -4,6 +4,10 @@ This is a Spring Web Application which supposed to help users to improve their E
 
 https://ryzhkov.website/
 
+Registrate or use existing user:
+Login		user@ukr.net
+Password	user
+
 ## Table of Contents
 
 - [Introduction](#introduction)
