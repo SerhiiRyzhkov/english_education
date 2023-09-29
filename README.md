@@ -1,8 +1,10 @@
 # English Education
 
 This is a Spring Web Application which supposed to help users to improve their English language skills. 
+### Available only for PC!
 
 https://ryzhkov.website/
+
 
 Registrate or use existing user:
 Login		user@ukr.net
